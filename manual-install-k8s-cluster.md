@@ -152,14 +152,16 @@ sudo kubeadm config images pull
 ```
 k8s_pod_network_cidr="10.8.0.0/22" # Pod Network of your choice
 ```
+> In case of Single Control Plane Setup
 ```
 sudo kubeadm init --pod-network-cidr="${k8s_pod_network_cidr}"
 ```  
 > ( Or )
->  In case of HA control plane setup
+>  In case of HA Control Plane Setup
   ```
   kubeadm init --pod-network-cidr={{ k8s_pod_network_cidr }} --control-plane-endpoint <fqdn of control-plane-endpoint>:6443
   ```
+create kube config file in the home directory
 ```
 mkdir -p $HOME/.kube
 sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
