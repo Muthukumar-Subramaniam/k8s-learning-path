@@ -155,6 +155,11 @@ k8s_pod_network_cidr="10.8.0.0/22" # Pod Network of your choice
 ```
 sudo kubeadm init --pod-network-cidr="${k8s_pod_network_cidr}"
 ```
+( Or )
+In case of HA control plane setup
+```
+kubeadm init --pod-network-cidr={{ k8s_pod_network_cidr }} --control-plane-endpoint <fqdn of control-plane-endpoint>:6443
+```
 ```
 mkdir -p $HOME/.kube
 sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
@@ -190,17 +195,21 @@ Update your bashrc file for kubectl command arguement tab completion
 echo 'source <(kubectl completion bash)' >> "${HOME}"/.bashrc
 source "${HOME}"/.bashrc
 ```
-To create token to join worker nodes, run the below
+To create token to join remaining nodes with the cluster, run the below
 ```
 sudo kubeadm token create --print-join-command
 ```
+In case of HA control plane setup, to print certificate-key to join remaining control plane nodes with the cluster
+```
+sudo kubeadm init phase upload-certs --upload-certs
+```
 
-### ⚠️ Step 10) Now run the above printed kubeadm join command in worker nodes to join them to the K8s cluster
+### ⚠️ Step 10) Now run the above printed kubeadm join command in worker nodes and remaining control plane nodes ( in case of HA cluster ) to join them to the K8s cluster
 > **🚨 CAUTION:**  
-> **Do NOT run the `kubeadm join` command on the control plane node.**  
-> This command should only be run on **worker nodes** to join them to the cluster. Running it on the control plane node can result in serious cluster issues, including duplicate control plane components and API server disruptions.  
+> **Do NOT run the `kubeadm join` command on the control plane node where you performed `kubeadm init`, can result in serious cluster issues, including duplicate control plane components and API server disruptions. **  
+> Note : while adding remaining control plane nodes in case of HA cluster with the join command you need to append this option with the join command `--control-plane --certificate-key <certificate-key you have printed before>` 
 
-If the join command succeeds, the kubelet service should be running now in the worker nodes
+If the join command succeeds, the kubelet service should be running now in the worker nodes and remaining control plane nodes ( in case of HA cluster ).
 ```
 sudo systemctl status kubelet.service --no-pager
 ```
