@@ -1,4 +1,3 @@
-<img width="1760" alt="Screenshot 2025-06-30 at 11 23 08 AM" src="https://github.com/user-attachments/assets/84669665-31d3-4a10-adb2-be3f3c7a73f1" />
 
 # 🧠 Kubernetes Networking Fundamentals
 
