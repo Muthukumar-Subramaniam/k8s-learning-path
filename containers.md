@@ -1,4 +1,3 @@
-<img width="711" alt="Screenshot 2025-06-09 at 1 36 15 PM" src="https://github.com/user-attachments/assets/38d4e885-53b3-492b-a462-884198b2e41a" />
 
 ## 🧩 [What is a Container?](https://www.docker.com/resources/what-container/)
 
