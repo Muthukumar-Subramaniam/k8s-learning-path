@@ -155,8 +155,8 @@ k8s_pod_network_cidr="10.8.0.0/22" # Pod Network of your choice
 ```
 sudo kubeadm init --pod-network-cidr="${k8s_pod_network_cidr}"
 ```  
-  ( Or )  
-  In case of HA control plane setup
+> ( Or )
+>  In case of HA control plane setup
   ```
   kubeadm init --pod-network-cidr={{ k8s_pod_network_cidr }} --control-plane-endpoint <fqdn of control-plane-endpoint>:6443
   ```
