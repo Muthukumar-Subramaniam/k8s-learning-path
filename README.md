@@ -8,7 +8,7 @@
 * [Why is it called K8s?](https://kubernetes.io/docs/concepts/overview/)
 * [K8s Benefits and Operating Principles](https://kubernetes.io/docs/concepts/overview/)
 * What Are Microservices?
-* [K8s Cluster Architecture Overview](k8s-architecture.md)
+* [K8s Cluster Architecture Overview](https://kubernetes.io/docs/concepts/architecture/)
   * [Control Plane Nodes](control-plane-node.md)
     * [kube-apiserver](kube-apiserver.md)
     * [etcd](etcd.md)
