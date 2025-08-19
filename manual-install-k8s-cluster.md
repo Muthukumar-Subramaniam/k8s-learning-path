@@ -139,9 +139,9 @@ sudo firewall-cmd --reload
 ```
 
 ### ⚠️ Step 9) Configure the Control Plane
-> **🚨 CAUTION:** 
-> This step must be executed ONLY on the control plane node.  
-> If you are setting up HA control plane, run only on one of the control plane node.  
+> **🚨 CAUTION:**  
+>\> This step must be executed ONLY on the control plane node.  
+>\> If you are setting up HA control plane, run only on one of the control plane node.  
 ----
 ```
 sudo systemctl enable --now kubelet.service && sudo systemctl status kubelet.service --no-pager
