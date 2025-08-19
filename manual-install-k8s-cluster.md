@@ -197,19 +197,18 @@ Update your bashrc file for kubectl command arguement tab completion
 echo 'source <(kubectl completion bash)' >> "${HOME}"/.bashrc
 source "${HOME}"/.bashrc
 ```
-To create token to join remaining nodes with the cluster, run the below
+To create join command to join worker nodes with the cluster, run the below
 ```
 sudo kubeadm token create --print-join-command
 ```
-In case of HA control plane setup, to print certificate-key to join remaining control plane nodes with the cluster
+In case of HA Control Plane Setup, to create join command to join remaining control plane nodes with the cluster, run the below
 ```
-sudo kubeadm init phase upload-certs --upload-certs
+sudo kubeadm token create --print-join-command --certificate-key $(sudo kubeadm init phase upload-certs --upload-certs | tail -n 1 | tr -d '[:space:]')
 ```
 
 ### ⚠️ Step 10) Now run the above printed kubeadm join command in worker nodes and remaining control plane nodes ( in case of HA cluster ) to join them to the K8s cluster
 > **🚨 CAUTION:**  
 > \> Do NOT run the `kubeadm join` command on the control plane node where you performed `kubeadm init`, can result in serious cluster issues, including duplicate control plane components and API server disruptions.  
-> \> While adding remaining control plane nodes in case of HA cluster setup, you need to append this option with the join command `--control-plane --certificate-key <certificate-key you have printed before>` 
 
 If the join command succeeds, the kubelet service should be running now in the worker nodes and remaining control plane nodes ( in case of HA cluster ).
 ```
