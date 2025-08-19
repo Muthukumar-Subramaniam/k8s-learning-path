@@ -1,7 +1,7 @@
 # Manual, the hard way of installing kubeadm-based [Kubernetes](https://kubernetes.io/) cluster on Linux from scratch
 
 ----  
-This documentation is designed for manually installing kubeadm-based [Kubernetes](https://kubernetes.io/) cluster on Linux from scratch for development and testing environment, with a single control plane node and multiple worker nodes, using [the most recent stable Kubernetes release](https://github.com/kubernetes/kubernetes/releases/latest).  
+This documentation is designed for manually installing kubeadm-based [Kubernetes](https://kubernetes.io/) cluster on Linux from scratch for development and testing environment, with a single control plane or HA control plane, using [the most recent stable Kubernetes release](https://github.com/kubernetes/kubernetes/releases/latest).  
 
 **Suitable Environment:** Development & Testing
 
@@ -19,6 +19,7 @@ This documentation is designed for manually installing kubeadm-based [Kubernetes
 * Please make sure the cluster nodes are on the same subnet and there are no network comunication issues between the nodes.
 * Please ensure that you have DNS set up that resolves all the involved hosts, or update the host files on all hosts with the necessary entries for each involved host.
 * Ensure you have a common user in all the nodes which has passwordless sudo privileges.
+* For HA cluster setups, ensure that the control plane endpoint is configured via a load balancer such as NGINX, HAProxy, or any load balancer of your choice.
  
 ### The main components of the installation.   
 * Container orchestrator: [kubernetes](https://github.com/kubernetes/kubernetes)
