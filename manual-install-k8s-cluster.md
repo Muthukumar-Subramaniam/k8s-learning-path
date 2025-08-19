@@ -140,6 +140,7 @@ sudo firewall-cmd --reload
 
 ### ⚠️ Step 9) Configure Control Plane (Run this ONLY on the Control Plane node)
 > **🚨 CAUTION:** This step must be executed ONLY on the control plane node.  
+> If you are setting up HA control plane, run only on one of the control plane node.  
 > Running it on a worker node may break the cluster configuration.
 ----
 ```
