@@ -45,7 +45,7 @@
 * Setting up Your Own K8s Cluster for Testing
   * [Click Here to Go to Github Repo for Creating a Automation Lab Environment](https://github.com/Muthukumar-Subramaniam/server-hub)
     * How to Perform a Manual Cluster Installation
-      * [Click Here to Go to Github Document for Manual Installation of Cluster](https://github.com/Muthukumar-Subramaniam/server-hub/blob/main/k8s/manual-install-k8s-cluster.md)
+      * [Click Here to Go to Github Document for Manual Installation of Cluster](manual-install-k8s-cluster.md)
     * How to Perform a Automated Cluster Installation Using Ansible
       * Ansible Project for Testing Environments - [install-k8s-on-linux](https://github.com/Muthukumar-Subramaniam/install-k8s-on-linux)
       * Production Level and Advanced Customizations - [Kubespray](https://kubespray.io/#/)
