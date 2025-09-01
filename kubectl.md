@@ -255,3 +255,5 @@ kubectl config use-context <context-name>
 Always run `--flatten` when merging — it **inlines all references**, so it becomes self-contained and **safe to share or move**.
 
 > ✅ Pro Tip: Keep your main `~/.kube/config` clean by merging only when needed, or use tools like [`kubectx`](https://github.com/ahmetb/kubectx) to manage multiple contexts easily.
+
+### Have a look at this for detailed look ups on each commands https://kubernetes.io/docs/reference/generated/kubectl/kubectl-commands
