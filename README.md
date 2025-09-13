@@ -59,4 +59,12 @@
 
 
 ## Managing Kubernetes Controllers and Deployments
- 
+### Using Controllers to Deploy Applications and Deployment Basics  
+* Kubernetes Principals, the Controller Manager, and Introduction to Controllers  
+* Examining System Pods and Their Controllers	 
+* Introducing the Deployment Controller and Deployment Basics	 
+* Creating a Basic Deployment Imperatively and Declaratively	 
+* Understanding ReplicaSet Controller Operations	 
+* Creating a Deployment and ReplicaSet Controller  
+* ReplicaSet Controller Operations - Working with Labels and Selectors  
+* ReplicaSet Controller Operations - Node Failures	 
