@@ -56,4 +56,7 @@
 * [Imperative way of managing the configurations and deployment of resources.](imperative-kubernetes.md)
 * Understanding [YAML](https://yaml.org/) and YAML manifests.
 * Declerative way of managing the configurations and deployment of resources.
+
+
+## Managing Kubernetes Controllers and Deployments
  
