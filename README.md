@@ -68,3 +68,12 @@
 * Creating a Deployment and ReplicaSet Controller  
 * ReplicaSet Controller Operations - Working with Labels and Selectors  
 * ReplicaSet Controller Operations - Node Failures	 
+
+### Maintaining Applications with Deployments  
+* Updating a Deployment and Checking Deployment Rollout Status	 
+* Using Deployments to Change State and Controlling Updates with UpdateStrategy	 
+* Pausing and Rolling Back Deployments	 
+* Rolling Back a Deployment and Controlling the Rate of a Rollout with UpdateStrategy	 
+* Using UpdateStrategy and Readiness Probes to Control a Rollout	 
+* Restarting a Deployment  	 
+* Scaling Deployments  
