@@ -77,3 +77,15 @@
 * Using UpdateStrategy and Readiness Probes to Control a Rollout	 
 * Restarting a Deployment  	 
 * Scaling Deployments  
+
+### Deploying and Maintaining Applications with DaemonSets and Jobs
+* Controllers in Kubernetes and Understanding DaemonSets	 
+* Updating DaemonSets	 
+* Creating and DaemonSets Controller Operations	 
+* Creating DaemonSets with NodeSelectors and Updating DaemonSets	 
+* Introducing and Working with Jobs	 
+* Introducing and Working with CronJobs	 
+* Executing Tasks with Jobs	 
+* Dealing with Job Failures and restartPolicy	 	
+* Working with Parallel Jobs and Scheduling Tasks with CronJobs  
+* Introducing StatefulSets	 
