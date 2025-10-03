@@ -1,0 +1,86 @@
+########## ConfigMap ##########
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: apache-nfs-configmap
+data:
+  my-apache-nfs-custom.conf: |
+    <VirtualHost *:80>
+      ServerName k8s-app-apache-nfs.lab.local
+      ServerAlias k8s-app-apache-nfs
+      DocumentRoot "/usr/local/apache2/htdocs"
+      <Directory "/usr/local/apache2/htdocs">
+        Options Indexes MultiViews FollowSymLinks
+        AllowOverride all
+        Require all granted
+      </Directory>
+    </VirtualHost>
+---
+########## Deployment ##########
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: apache-nfs
+  labels:
+    app: apache-nfs
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: apache-nfs
+  template:
+    metadata:
+      labels:
+        app: apache-nfs
+    spec:
+      terminationGracePeriodSeconds: 1
+      volumes:
+      - name: apache-nfs-config-volume
+        configMap:
+          name: apache-nfs-configmap
+          defaultMode: 0644
+      - name: nfs-volume
+        persistentVolumeClaim:
+          claimName: nfs-pvc-web-share  
+          readOnly: true
+            #      - name: cifs-volume
+            #        persistentVolumeClaim:
+            #          claimName: cifs-pvc-downloads  
+            #          readOnly: true
+      containers:
+      - name: httpd
+        image: httpd:latest
+          #imagePullPolicy: IfNotPresent
+        imagePullPolicy: Always
+        lifecycle:
+          postStart:
+            exec:
+              command: ["/bin/bash", "-c", "echo Include conf/extra/my-apache-nfs-custom.conf >> /usr/local/apache2/conf/httpd.conf && apachectl restart"]
+        ports:
+        - containerPort: 80
+        volumeMounts:
+        - mountPath: /usr/local/apache2/htdocs
+          name: nfs-volume
+          readOnly: true
+            #        - mountPath: /downloads
+            #          name: cifs-volume
+            #          readOnly: true
+        - mountPath: /usr/local/apache2/conf/extra/my-apache-nfs-custom.conf
+          subPath: my-apache-nfs-custom.conf
+          name: apache-nfs-config-volume
+---
+########## Service ##########
+apiVersion: v1
+kind: Service
+metadata:
+  name: apache-nfs
+spec:
+  selector:
+    app: apache-nfs
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+  type: LoadBalancer
+  loadBalancerIP: 10.10.20.203
+---

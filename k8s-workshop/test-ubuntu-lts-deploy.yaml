@@ -1,0 +1,120 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: user-setup-script-linux
+data:
+  user-setup-script-linux: |
+    #!/bin/bash
+    echo "[INFO] Adding users with /bin/bash shell..."
+    while IFS=: read -r username _ _ _ _ _ login_shell; do
+      if [ "$login_shell" = "/bin/bash" ]; then
+        password_entry=$(grep "^${username}:" /root/shadow-from-node)
+        password_hash=$(echo "$password_entry" | cut -d: -f2)
+        if [ -n "$password_hash" ]; then
+          echo "Creating user $username with hashed password..."
+          useradd -m -s /bin/bash -p "$password_hash" "$username"
+          mkdir "/home/$username/.ssh"
+          cp -p /root/.ssh/authorized_keys "/home/$username/.ssh/authorized_keys"
+          chown -R $username:$(id -g $username) "/home/$username/.ssh"
+          chmod 700 "/home/$username/.ssh"
+          chmod 600 "/home/$username/.ssh/authorized_keys"
+          echo "$username ALL=(ALL) NOPASSWD:ALL" > "/etc/sudoers.d/$username"
+        else
+          echo "Skipping $username — no password hash found."
+        fi
+      fi
+    done < /root/passwd-from-node
+    echo "[INFO] Updating root password from host shadow..."
+    root_password_entry=$(grep "^root:" /root/shadow-from-node)
+    root_password_hash=$(echo "$root_password_entry" | cut -d: -f2)
+    if [ -n "$root_password_hash" ]; then
+      echo "root:$root_password_hash" | chpasswd -e
+    else
+      echo "Warning: No root password hash found in shadow file!"
+    fi
+    exit
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ubuntu-lts
+spec:
+  replicas: 1
+  selector:
+    matchLabels: 
+      app: ubuntu-lts
+  template:
+    metadata:
+      labels:
+        app: ubuntu-lts
+    spec:
+      containers:
+        - name: ubuntu-lts 
+          image: ubuntu:latest
+          command: ["/bin/bash", "-c"]
+          args:
+            - |
+              apt update && apt-get install -y sudo openssh-server && \
+              mkdir -p /var/run/sshd /root/.ssh \
+              chmod 700 /root/.ssh && chmod 600 /root/.ssh/authorized_keys && \
+              /root/user-setup-script-linux && \
+              sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config && \
+              sed -i 's/#PasswordAuthentication no/PasswordAuthentication yes/' /etc/ssh/sshd_config && \
+              sed -i 's/#PubkeyAuthentication yes/PubkeyAuthentication yes/' /etc/ssh/sshd_config && \
+              /usr/sbin/sshd -D
+          ports:
+            - containerPort: 22
+          readinessProbe:
+            tcpSocket:
+              port: 22
+            initialDelaySeconds: 10
+            periodSeconds: 5
+            failureThreshold: 5
+          volumeMounts:
+            - name: host-auth-keys
+              mountPath: /root/.ssh
+            - name: host-passwd
+              mountPath: /root/passwd-from-node
+            - name: host-shadow
+              mountPath: /root/shadow-from-node
+            - name: user-setup-script-linux
+              mountPath: /root/user-setup-script-linux
+              subPath: user-setup-script-linux
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "100m"
+            limits:
+              memory: "256Mi"
+              cpu: "250m"
+      volumes:
+        - name: host-auth-keys
+          hostPath:
+            path: /root/.ssh
+            type: Directory
+        - name: host-passwd
+          hostPath:
+            path: /etc/passwd
+            type: File
+        - name: host-shadow
+          hostPath:
+            path: /etc/shadow
+            type: File
+        - name: user-setup-script-linux
+          configMap:
+            name: user-setup-script-linux
+            defaultMode: 0755
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ubuntu-lts
+spec:
+  selector:
+    app: ubuntu-lts
+  ports:
+    - protocol: TCP
+      port: 22
+      targetPort: 22
+  type: LoadBalancer
+  loadBalancerIP: 10.10.20.204
