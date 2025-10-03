@@ -11,5 +11,5 @@ spec:
     driver: nfs.csi.k8s.io 
     volumeHandle: nfs-web-share
     volumeAttributes:
-      server: server.lab.local
-      share: /server.lab.local
+      server: tuxops360.lab.local
+      share: /tuxops360.lab.local
