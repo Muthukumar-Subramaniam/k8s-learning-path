@@ -1,32 +1,31 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: web-app
+  name: web-app-nginx
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: web-app
+      app: web-app-nginx
   template:
     metadata:
       labels:
-        app: web-app
+        app: web-app-nginx
     spec:
       containers:
-      - name: apache-web-server
-        image: httpd:latest
+      - name: nginx-web-server
+        image: nginx:latest
         ports:
         - containerPort: 80
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: web-app
+  name: web-app-nginx
 spec:
   selector:
-    app: web-app
+    app: web-app-nginx
   ports:
     - protocol: TCP
       port: 80
       targetPort: 80
-  type: LoadBalancer

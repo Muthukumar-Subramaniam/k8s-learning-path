@@ -1,0 +1,17 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: web-app-apache-ingress
+spec:
+  ingressClassName: nginx    # 👈 Must match the IngressClass name
+  rules:
+  - host: web-app-apache.lab.local
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: web-app-apache
+            port:
+              number: 80
