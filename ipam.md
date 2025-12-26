@@ -194,6 +194,8 @@ kubectl get pods -o wide
 
 Notice the IPs are **not sequential** - they come from different `/26` blocks allocated dynamically.
 
+> 💡 **Detailed Example**: For a comprehensive real-world example showing network interfaces, routing tables, and traffic flow on a Calico-enabled node, see [Calico Network Interfaces Example](calico-network-interfaces-example.md).
+
 **Verification Commands:**
 ```bash
 # View Calico IPPools
