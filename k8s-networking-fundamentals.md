@@ -161,7 +161,9 @@ The **Pod Network** is a virtual network managed by the CNI plugin where Pods ge
   - Container-to-container within Pod via localhost
   - Kubernetes internal networking
 
-**IPAM (IP Address Management) - How CNI Plugins Handle IP Allocation**:
+**[IPAM (IP Address Management)](ipam.md) - How CNI Plugins Handle IP Allocation**:
+
+> 📖 **Detailed Guide**: See [ipam.md](ipam.md) for comprehensive explanation of IPAM and different CNI behaviors
 
 Different CNI plugins handle IP allocation differently:
 
