@@ -99,7 +99,7 @@ The **Node Network** is the physical or VM network where Kubernetes nodes reside
 
 **Characteristics**:
 - **Purpose**: Node-to-node communication, external access
-- **CIDR Example**: `10.10.20.0/22` (your configuration)
+- **CIDR Example**: `10.10.20.0/22`
   - Control plane: 10.10.20.3
   - Worker 1: 10.10.20.4
   - Worker 2: 10.10.20.5
@@ -149,7 +149,7 @@ The **Pod Network** is a virtual network managed by the CNI plugin where Pods ge
 
 **Characteristics**:
 - **Purpose**: Pod-to-Pod communication across the cluster
-- **CIDR Example**: `10.8.0.0/16` (your configuration)
+- **CIDR Example**: `10.8.0.0/16`
 - **Configuration**: Set during cluster initialization
   ```bash
   # Example kubeadm init
@@ -357,7 +357,7 @@ Node Network:    10.8.0.0/16
 Pod Network:     10.8.0.0/16    # Overlaps!
 Service Network: 10.96.0.0/12   # OK
 
-# ✅ GOOD - Non-overlapping ranges (Your Configuration)
+# ✅ GOOD - Non-overlapping ranges (Example Configuration)
 Node Network:    10.10.20.0/22
 Pod Network:     10.8.0.0/16
 Service Network: 10.96.0.0/12
@@ -393,7 +393,7 @@ kubectl get pods -o wide --all-namespaces
 kubectl get services --all-namespaces
 ```
 
-### Real-World Example with Your Configuration
+### Real-World Configuration Example
 
 ```yaml
 # Cluster Configuration
