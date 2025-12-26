@@ -226,7 +226,7 @@ spec:
 kubectl get nodes -o jsonpath='{range .items[*]}{.metadata.name}{"\t"}{.spec.podCIDR}{"\n"}{end}'
 
 # Calico-specific: View IP pools and allocations
-kubectl get ippools.projectcalico.org -o wide
+kubectl get ippools.crd.projectcalico.org -o wide
 calicoctl get ipamblocks -o wide
 calicoctl ipam show
 
