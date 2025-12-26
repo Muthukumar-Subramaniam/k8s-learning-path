@@ -290,15 +290,6 @@ CIDR:.spec.cidr,\
 AFFINITY:.spec.affinity
 ```
 
-### Verify Calico Networking Status
-```bash
-# Check Calico pods
-kubectl get pods -n calico-system
-
-# View Calico node status
-kubectl get caliconodes
-```
-
 ## Troubleshooting Tips
 
 ### 1. Verify IPIP Tunnel
@@ -323,11 +314,6 @@ ip link | grep cali
 ```bash
 # From inside a Pod
 kubectl exec -it <pod-name> -- ping <another-pod-ip>
-```
-
-### 5. Verify BGP Peering (if using BGP mode)
-```bash
-kubectl exec -it -n calico-system calico-node-<id> -- calicoctl node status
 ```
 
 ## Summary
