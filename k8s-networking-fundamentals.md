@@ -767,8 +767,68 @@ spec:
 - ✅ Automatic external IP provisioning
 - ✅ Managed by cloud provider
 - ✅ High availability
-- ⚠️ Requires cloud environment or MetalLB (bare metal)
+- ⚠️ Requires cloud environment or [MetalLB](metallb.md) (bare metal)
 - ⚠️ Cost per LoadBalancer
+
+### Load Balancer Types
+
+Kubernetes LoadBalancer services behave differently depending on the environment:
+
+| Environment | Implementation | How It Works |
+|-------------|----------------|--------------|
+| **Cloud (AWS)** | AWS ELB/NLB/ALB | Cloud provider provisions load balancer automatically |
+| **Cloud (GCP)** | Google Cloud Load Balancer | GCP creates external load balancer with health checks |
+| **Cloud (Azure)** | Azure Load Balancer | Azure provisions L4 load balancer with public IP |
+| **Bare Metal** | [MetalLB](metallb.md) | Software-based load balancer using L2 (ARP) or L3 (BGP) |
+| **On-Premises** | [MetalLB](metallb.md) / F5 / HAProxy | Requires manual configuration or MetalLB |
+
+#### Cloud vs On-Premises Load Balancing
+
+**Cloud Environment**:
+```yaml
+# Cloud LoadBalancer - Automatic provisioning
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-app
+spec:
+  type: LoadBalancer
+  selector:
+    app: my-app
+  ports:
+  - port: 80
+    targetPort: 8080
+
+# Cloud provider automatically:
+# 1. Provisions external load balancer
+# 2. Assigns public IP address
+# 3. Configures health checks
+# 4. Routes traffic to nodes
+```
+
+**Result**: Service gets external IP from cloud provider (e.g., `34.123.45.67`)
+
+**On-Premises/Bare Metal**:
+
+Without MetalLB:
+```bash
+$ kubectl get svc my-app
+NAME     TYPE           CLUSTER-IP      EXTERNAL-IP   PORT(S)
+my-app   LoadBalancer   10.106.190.47   <pending>     80:30681/TCP
+```
+
+With MetalLB:
+```bash
+$ kubectl get svc my-app
+NAME     TYPE           CLUSTER-IP      EXTERNAL-IP    PORT(S)
+my-app   LoadBalancer   10.106.190.47   10.10.20.201   80:30681/TCP
+```
+
+**MetalLB provides two modes**:
+- **[Layer 2 Mode](metallb.md#layer-2-mode)**: Uses ARP, one node handles traffic (simple setup)
+- **[Layer 3 Mode](metallb.md#layer-3-bgp-mode)**: Uses BGP, true load balancing across nodes (production)
+
+> 📖 **Detailed Guide**: See [metallb.md](metallb.md) for comprehensive MetalLB setup, Layer 2 vs Layer 3 comparison, and configuration examples
 
 ### kube-proxy Modes
 
