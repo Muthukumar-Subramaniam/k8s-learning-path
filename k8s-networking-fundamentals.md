@@ -65,6 +65,7 @@ Kubernetes networking is built on these core requirements:
 | Component | Responsibility | Implementation |
 |-----------|---------------|----------------|
 | **Container Runtime** | Pod network namespace setup | CRI-compatible runtime (containerd, CRI-O) |
+| **Pause Container** | Maintains Pod network namespace | [Automatically created per Pod](pause-containers.md) |
 | **CNI Plugin** | Pod network implementation | Calico, Flannel, Cilium, Weave, etc. |
 | **kube-proxy** | Service proxy and load balancing | iptables, IPVS, or eBPF modes |
 | **CoreDNS** | Service discovery via DNS | DNS server for cluster |
@@ -419,7 +420,9 @@ Service Network: 10.96.0.0/12
 
 ### Within the Same Pod
 
-Containers in the same Pod share a network namespace, enabling localhost communication.
+Containers in the same Pod share a network namespace, enabling localhost communication. This network namespace is maintained by a special **[pause container](pause-containers.md)** that Kubernetes automatically creates for every Pod.
+
+> 📖 **Deep Dive**: See [pause-containers.md](pause-containers.md) for detailed explanation of how pause containers maintain network stability across container restarts.
 
 ```
 ┌─────────────────────────────────────────────────┐
