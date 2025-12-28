@@ -35,74 +35,59 @@ Kubernetes networking is built on these core requirements:
 
 ```mermaid
 graph TB
-    subgraph cluster["KUBERNETES CLUSTER"]
-        subgraph cp["CONTROL PLANE NODE<br/>10.10.20.3"]
-            api["API Server"]
-            etcd["etcd"]
-            sched["Scheduler"]
-            ctrl["Controller Manager"]
-            coredns["CoreDNS"]
-            cni_ctrl["CNI Plugin<br/>(Control)"]
-        end
+    subgraph CP[" CONTROL PLANE NODE "]
+        API[kube-apiserver]
+        ETCD[etcd]
+        SCHED[kube-scheduler]
+        CM[kube-controller-manager]
+        DNS[CoreDNS]
+    end
+    
+    subgraph WN1[" WORKER NODE 1 "]
+        KUBELET1[kubelet]
+        PROXY1[kube-proxy]
+        CNI1[CNI Plugin]
+        RT1[Container Runtime]
         
-        subgraph w1["WORKER NODE 1<br/>10.10.20.4<br/>Pod CIDR: 10.8.0.0/24"]
-            kubelet1["kubelet"]
-            proxy1["kube-proxy"]
-            cni1["CNI Plugin"]
-            
-            subgraph kernel1["Linux Kernel"]
-                ipt1["iptables"]
-                route1["Routing"]
-                bridge1["cni0 Bridge"]
-                veth1["veth pairs"]
-            end
-            
-            subgraph pod1["POD 1<br/>10.8.0.5"]
-                pause1["Pause"]
-                cont1["nginx"]
-            end
-            
-            subgraph pod2["POD 2<br/>10.8.0.8"]
-                cont2a["app"]
-                cont2b["sidecar"]
-            end
-            
-            runtime1["Container Runtime"]
-            nic1["eth0 (10.10.20.4)"]
-        end
-        
-        subgraph w2["WORKER NODE 2<br/>10.10.20.5<br/>Pod CIDR: 10.8.1.0/24"]
-            kubelet2["kubelet"]
-            proxy2["kube-proxy"]
-            cni2["CNI Plugin"]
-            nic2["eth0 (10.10.20.5)"]
-        end
-        
-        subgraph networks["NETWORK OVERLAYS"]
-            node_net["�� Node Network<br/>10.10.20.0/22<br/>Physical/VM"]
-            pod_net["🌐 Pod Network<br/>10.8.0.0/16<br/>CNI-managed"]
-            svc_net["⚖️ Service Network<br/>10.96.0.0/12<br/>Virtual IPs"]
+        subgraph PODS1[" Pods "]
+            POD1[Pod 10.8.0.5]
+            POD2[Pod 10.8.0.8]
         end
     end
     
-    api <-.Watch & Report.-> kubelet1
-    api <-.Watch & Report.-> kubelet2
-    kubelet1 --> proxy1
-    kubelet1 --> cni1
-    proxy1 --> ipt1
-    cni1 --> bridge1
-    bridge1 --> veth1
-    veth1 --> pod1
-    veth1 --> pod2
-    runtime1 --> pod1
-    runtime1 --> pod2
+    subgraph WN2[" WORKER NODE 2 "]
+        KUBELET2[kubelet]
+        PROXY2[kube-proxy]
+        CNI2[CNI Plugin]
+        
+        subgraph PODS2[" Pods "]
+            POD3[Pod 10.8.1.5]
+        end
+    end
     
-    style cp fill:#e1f5ff
-    style w1 fill:#fff4e1
-    style w2 fill:#fff4e1
-    style kernel1 fill:#f0f0f0
-    style networks fill:#e8f5e9
+    subgraph NET[" NETWORKS "]
+        NN[Node Network: 10.10.20.0/22]
+        PN[Pod Network: 10.8.0.0/16]
+        SN[Service Network: 10.96.0.0/12]
+    end
+    
+    API <--> KUBELET1
+    API <--> KUBELET2
+    KUBELET1 --> RT1
+    KUBELET1 --> CNI1
+    RT1 --> PODS1
+    CNI1 --> PODS1
+    PROXY1 -.-> SN
+    
+    style CP fill:#e3f2fd
+    style WN1 fill:#fff3e0
+    style WN2 fill:#fff3e0
+    style NET fill:#e8f5e9
+    style PODS1 fill:#f3e5f5
+    style PODS2 fill:#f3e5f5
 ```
+
+### Key Components
 
 ### Key Components
 
