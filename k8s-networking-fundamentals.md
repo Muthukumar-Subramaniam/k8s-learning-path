@@ -588,6 +588,20 @@ ip route show
 
 ## 🎯 Service Discovery and Load Balancing
 
+### kube-proxy: How Services Work
+
+**kube-proxy** runs on every node and makes Kubernetes Services work by translating Service virtual IPs into actual Pod IPs. It watches the API server for Service and Endpoint changes, then programs network rules (iptables/IPVS/eBPF) to route traffic to the correct Pods.
+
+**kube-proxy Modes:**
+
+| Mode | How It Works | Performance | Use Case |
+|------|--------------|-------------|----------|
+| **iptables** | Creates iptables rules for each service | Good | Default, most compatible |
+| **IPVS** | Uses Linux IPVS for load balancing | Better | Large clusters (>1000 services) |
+| **eBPF** | Uses eBPF programs in kernel | Best | Modern, requires newer kernels |
+
+> 📖 **Detailed Guide**: See [kube-proxy.md](kube-proxy.md) for complete explanation of how kube-proxy works, detailed mode comparisons, traffic flow diagrams, configuration examples, and troubleshooting
+
 ### The Service Abstraction
 
 Services provide stable endpoints for accessing a group of Pods, even as Pods are created/destroyed. When you create a Service, it gets a stable ClusterIP. **kube-proxy** on each node translates traffic to this ClusterIP into connections to actual Pod IPs, providing load balancing across healthy Pods.
@@ -829,22 +843,6 @@ my-app   LoadBalancer   10.106.190.47   10.10.20.201   80:30681/TCP
 - **[Layer 3 Mode](metallb.md#layer-3-bgp-mode)**: Uses BGP, true load balancing across nodes (production)
 
 > 📖 **Detailed Guide**: See [metallb.md](metallb.md) for comprehensive MetalLB setup, Layer 2 vs Layer 3 comparison, and configuration examples
-
----
-
-## 🔄 kube-proxy: Service Traffic Management
-
-**kube-proxy** runs on every node and makes Kubernetes Services work by translating Service virtual IPs into actual Pod IPs. It watches the API server for Service and Endpoint changes, then programs network rules (iptables/IPVS/eBPF) to route traffic to the correct Pods.
-
-### kube-proxy Modes
-
-| Mode | How It Works | Performance | Use Case |
-|------|--------------|-------------|----------|
-| **iptables** | Creates iptables rules for each service | Good | Default, most compatible |
-| **IPVS** | Uses Linux IPVS for load balancing | Better | Large clusters (>1000 services) |
-| **eBPF** | Uses eBPF programs in kernel | Best | Modern, requires newer kernels |
-
-> 📖 **Detailed Guide**: See [kube-proxy.md](kube-proxy.md) for complete explanation of how kube-proxy works, detailed mode comparisons, traffic flow diagrams, configuration examples, and troubleshooting
 
 ### EndpointSlices
 
