@@ -7,13 +7,14 @@
 ## 📋 Table of Contents
 
 1. [Core Network Model](#core-network-model)
-2. [Container-to-Container Communication](#container-to-container-communication)
-3. [Pod-to-Pod Communication](#pod-to-pod-communication)
-4. [Service Discovery and Load Balancing](#service-discovery-and-load-balancing)
-5. [External Access Patterns](#external-access-patterns)
-6. [Network Policies](#network-policies)
-7. [DNS Resolution](#dns-resolution)
-8. [Summary Reference](#summary-reference)
+2. [Understanding Kubernetes Networks](#understanding-kubernetes-networks)
+3. [Container-to-Container Communication](#container-to-container-communication)
+4. [Pod-to-Pod Communication](#pod-to-pod-communication)
+5. [Service Discovery and Load Balancing](#service-discovery-and-load-balancing)
+6. [External Access Patterns](#external-access-patterns)
+7. [Network Policies](#network-policies)
+8. [DNS Resolution](#dns-resolution)
+9. [Summary Reference](#summary-reference)
 
 ---
 
