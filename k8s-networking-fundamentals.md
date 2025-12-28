@@ -33,7 +33,7 @@ Kubernetes networking is built on these core requirements:
 
 ### Architecture Components
 
-![Kubernetes Architecture](k8s-architecture.gif)
+![Kubernetes Architecture](k8s-architecture.png)
 
 **Architecture Overview:**
 
