@@ -129,8 +129,6 @@ Kubernetes networking is built on these core requirements:
 
 ### Key Components
 
-### Key Components
-
 | Component | Responsibility | Implementation |
 |-----------|---------------|----------------|
 | **Container Runtime** | Pod network namespace setup | CRI-compatible runtime (containerd, CRI-O) |
