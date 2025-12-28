@@ -33,33 +33,9 @@ Kubernetes networking is built on these core requirements:
 
 ### Architecture Components
 
-| Node Type | Component | Purpose | Network |
-|-----------|-----------|---------|---------|
-| **CONTROL PLANE** | | | **10.10.20.3** |
-| | kube-apiserver | API gateway, cluster coordination | Node Network |
-| | etcd | Cluster state storage | Node Network |
-| | kube-scheduler | Pod scheduling decisions | Node Network |
-| | kube-controller-manager | Cluster controllers | Node Network |
-| | CoreDNS | DNS service discovery | Node Network |
-| **WORKER NODE 1** | | | **10.10.20.4** |
-| | kubelet | Pod lifecycle management | Node Network |
-| | kube-proxy | Service networking, load balancing | Service Network |
-| | CNI Plugin | Pod networking, IP allocation | Pod Network |
-| | Container Runtime | Container execution | Pod Network |
-| | **Pods** | Pod 10.8.0.5, Pod 10.8.0.8 | **10.8.0.0/24** |
-| **WORKER NODE 2** | | | **10.10.20.5** |
-| | kubelet | Pod lifecycle management | Node Network |
-| | kube-proxy | Service networking, load balancing | Service Network |
-| | CNI Plugin | Pod networking, IP allocation | Pod Network |
-| | **Pods** | Pod 10.8.1.5 | **10.8.1.0/24** |
+![Kubernetes Architecture](k8s-architecture.gif)
 
-**Network Layers:**
-
-| Network Type | CIDR | Purpose |
-|--------------|------|---------|
-| Node Network | 10.10.20.0/22 | Physical/VM network for node communication |
-| Pod Network | 10.8.0.0/16 | CNI-managed network for pod-to-pod communication |
-| Service Network | 10.96.0.0/12 | Virtual IPs for service discovery (kube-proxy managed) |
+**Architecture Overview:**
 
 ### Key Components
 
