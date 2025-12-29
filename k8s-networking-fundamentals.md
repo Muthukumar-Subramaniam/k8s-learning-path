@@ -478,7 +478,7 @@ Service Network: 10.96.0.0/12
   - Your app services:     10.96.x.x
 ```
 
-[↑ Back to Table of Contents](#-table-of-contents)
+<p align="right">[↑ Back to Table of Contents](#-table-of-contents)</p>
 
 ---
 
@@ -531,7 +531,7 @@ redis-cli -h localhost -p 6379
 curl http://localhost:8080/metrics
 ```
 
-[↑ Back to Table of Contents](#-table-of-contents)
+<p align="right">[↑ Back to Table of Contents](#-table-of-contents)</p>
 
 ---
 
@@ -652,7 +652,7 @@ ip route show
 # 10.8.1.0/24 via 10.10.20.5 dev eth0
 ```
 
-[↑ Back to Table of Contents](#-table-of-contents)
+<p align="right">[↑ Back to Table of Contents](#-table-of-contents)</p>
 
 ---
 
@@ -941,7 +941,7 @@ endpoints:
       ready: true
 ```
 
-[↑ Back to Table of Contents](#-table-of-contents)
+<p align="right">[↑ Back to Table of Contents](#-table-of-contents)</p>
 
 ---
 
@@ -1056,7 +1056,7 @@ spec:
     port: 80
 ```
 
-[↑ Back to Table of Contents](#-table-of-contents)
+<p align="right">[↑ Back to Table of Contents](#-table-of-contents)</p>
 
 ---
 
@@ -1142,7 +1142,7 @@ spec:
 - ✅ Supports: Calico, Cilium, Weave
 - ❌ Doesn't support: Flannel (basic mode)
 
-[↑ Back to Table of Contents](#-table-of-contents)
+<p align="right">[↑ Back to Table of Contents](#-table-of-contents)</p>
 
 ---
 
@@ -1269,7 +1269,7 @@ spec:
         value: "5"
 ```
 
-[↑ Back to Table of Contents](#-table-of-contents)
+<p align="right">[↑ Back to Table of Contents](#-table-of-contents)</p>
 
 ---
 
@@ -1363,7 +1363,7 @@ curl http://<node-ip>:<node-port>
 - Use host network mode unless necessary
 - Bypass Services for Pod-to-Pod communication
 
-[↑ Back to Table of Contents](#-table-of-contents)
+<p align="right">[↑ Back to Table of Contents](#-table-of-contents)</p>
 
 ---
 
