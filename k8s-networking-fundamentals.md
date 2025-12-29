@@ -19,7 +19,7 @@
 ---
 
 ## Core Network Model
-[↑ Back to Table of Contents](#-table-of-contents)
+<div align="right">[↑ Back to Table of Contents](#-table-of-contents)</div>
 
 ### Fundamental Principles
 
@@ -141,7 +141,7 @@ Kubernetes networking is built on these core requirements:
 ---
 
 ## Understanding Kubernetes Networks
-[↑ Back to Table of Contents](#-table-of-contents)
+<div align="right">[↑ Back to Table of Contents](#-table-of-contents)</div>
 
 Kubernetes uses three distinct network address spaces that work together:
 
@@ -483,7 +483,7 @@ Service Network: 10.96.0.0/12
 ---
 
 ## Container-to-Container Communication
-[↑ Back to Table of Contents](#-table-of-contents)
+<div align="right">[↑ Back to Table of Contents](#-table-of-contents)</div>
 
 ### Within the Same Pod
 
@@ -535,7 +535,7 @@ curl http://localhost:8080/metrics
 ---
 
 ## Pod-to-Pod Communication
-[↑ Back to Table of Contents](#-table-of-contents)
+<div align="right">[↑ Back to Table of Contents](#-table-of-contents)</div>
 
 ### Same Node Communication
 
@@ -655,7 +655,7 @@ ip route show
 ---
 
 ## Service Discovery and Load Balancing
-[↑ Back to Table of Contents](#-table-of-contents)
+<div align="right">[↑ Back to Table of Contents](#-table-of-contents)</div>
 
 ### kube-proxy: How Services Work
 
@@ -943,7 +943,7 @@ endpoints:
 ---
 
 ## External Access Patterns
-[↑ Back to Table of Contents](#-table-of-contents)
+<div align="right">[↑ Back to Table of Contents](#-table-of-contents)</div>
 
 ### Ingress Architecture
 
@@ -1057,7 +1057,7 @@ spec:
 ---
 
 ## Network Policies
-[↑ Back to Table of Contents](#-table-of-contents)
+<div align="right">[↑ Back to Table of Contents](#-table-of-contents)</div>
 
 Network Policies control traffic flow between Pods (Layer 3/4 firewall rules).
 
@@ -1142,7 +1142,7 @@ spec:
 ---
 
 ## DNS Resolution
-[↑ Back to Table of Contents](#-table-of-contents)
+<div align="right">[↑ Back to Table of Contents](#-table-of-contents)</div>
 
 ### CoreDNS Architecture
 
@@ -1268,7 +1268,7 @@ spec:
 ---
 
 ## Summary Reference
-[↑ Back to Table of Contents](#-table-of-contents)
+<div align="right">[↑ Back to Table of Contents](#-table-of-contents)</div>
 
 ### Communication Matrix
 
