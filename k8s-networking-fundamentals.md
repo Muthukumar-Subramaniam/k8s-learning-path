@@ -6,19 +6,20 @@
 
 ## 📋 Table of Contents
 
-1. [Core Network Model](#core-network-model)
-2. [Understanding Kubernetes Networks](#understanding-kubernetes-networks)
-3. [Container-to-Container Communication](#container-to-container-communication)
-4. [Pod-to-Pod Communication](#pod-to-pod-communication)
-5. [Service Discovery and Load Balancing](#service-discovery-and-load-balancing)
-6. [External Access Patterns](#external-access-patterns)
-7. [Network Policies](#network-policies)
-8. [DNS Resolution](#dns-resolution)
-9. [Summary Reference](#summary-reference)
+- [Core Network Model](#core-network-model)
+- [Understanding Kubernetes Networks](#understanding-kubernetes-networks)
+- [Container-to-Container Communication](#container-to-container-communication)
+- [Pod-to-Pod Communication](#pod-to-pod-communication)
+- [Service Discovery and Load Balancing](#service-discovery-and-load-balancing)
+- [External Access Patterns](#external-access-patterns)
+- [Network Policies](#network-policies)
+- [DNS Resolution](#dns-resolution)
+- [Summary Reference](#summary-reference)
 
 ---
 
 ## Core Network Model
+[↑ Back to Table of Contents](#-table-of-contents)
 
 ### Fundamental Principles
 
@@ -140,6 +141,7 @@ Kubernetes networking is built on these core requirements:
 ---
 
 ## Understanding Kubernetes Networks
+[↑ Back to Table of Contents](#-table-of-contents)
 
 Kubernetes uses three distinct network address spaces that work together:
 
@@ -481,6 +483,7 @@ Service Network: 10.96.0.0/12
 ---
 
 ## Container-to-Container Communication
+[↑ Back to Table of Contents](#-table-of-contents)
 
 ### Within the Same Pod
 
@@ -532,6 +535,7 @@ curl http://localhost:8080/metrics
 ---
 
 ## Pod-to-Pod Communication
+[↑ Back to Table of Contents](#-table-of-contents)
 
 ### Same Node Communication
 
@@ -651,6 +655,7 @@ ip route show
 ---
 
 ## Service Discovery and Load Balancing
+[↑ Back to Table of Contents](#-table-of-contents)
 
 ### kube-proxy: How Services Work
 
@@ -938,6 +943,7 @@ endpoints:
 ---
 
 ## External Access Patterns
+[↑ Back to Table of Contents](#-table-of-contents)
 
 ### Ingress Architecture
 
@@ -1051,6 +1057,7 @@ spec:
 ---
 
 ## Network Policies
+[↑ Back to Table of Contents](#-table-of-contents)
 
 Network Policies control traffic flow between Pods (Layer 3/4 firewall rules).
 
@@ -1135,6 +1142,7 @@ spec:
 ---
 
 ## DNS Resolution
+[↑ Back to Table of Contents](#-table-of-contents)
 
 ### CoreDNS Architecture
 
@@ -1260,6 +1268,7 @@ spec:
 ---
 
 ## Summary Reference
+[↑ Back to Table of Contents](#-table-of-contents)
 
 ### Communication Matrix
 
