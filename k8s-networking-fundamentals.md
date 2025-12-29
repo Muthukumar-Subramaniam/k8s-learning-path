@@ -18,7 +18,7 @@
 
 ---
 
-## �� Core Network Model
+## Core Network Model
 
 ### Fundamental Principles
 
@@ -139,7 +139,7 @@ Kubernetes networking is built on these core requirements:
 
 ---
 
-## 🌐 Understanding Kubernetes Networks
+## Understanding Kubernetes Networks
 
 Kubernetes uses three distinct network address spaces that work together:
 
@@ -480,7 +480,7 @@ Service Network: 10.96.0.0/12
 
 ---
 
-## 🔗 Container-to-Container Communication
+## Container-to-Container Communication
 
 ### Within the Same Pod
 
@@ -531,7 +531,7 @@ curl http://localhost:8080/metrics
 
 ---
 
-## 📡 Pod-to-Pod Communication
+## Pod-to-Pod Communication
 
 ### Same Node Communication
 
@@ -650,7 +650,7 @@ ip route show
 
 ---
 
-## 🎯 Service Discovery and Load Balancing
+## Service Discovery and Load Balancing
 
 ### kube-proxy: How Services Work
 
@@ -937,7 +937,7 @@ endpoints:
 
 ---
 
-## 🌍 External Access Patterns
+## External Access Patterns
 
 ### Ingress Architecture
 
@@ -1050,7 +1050,7 @@ spec:
 
 ---
 
-## 🔒 Network Policies
+## Network Policies
 
 Network Policies control traffic flow between Pods (Layer 3/4 firewall rules).
 
@@ -1134,7 +1134,7 @@ spec:
 
 ---
 
-## 🔍 DNS Resolution
+## DNS Resolution
 
 ### CoreDNS Architecture
 
@@ -1259,7 +1259,7 @@ spec:
 
 ---
 
-## 📊 Summary Reference
+## Summary Reference
 
 ### Communication Matrix
 
