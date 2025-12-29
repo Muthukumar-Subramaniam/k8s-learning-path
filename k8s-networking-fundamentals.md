@@ -19,7 +19,6 @@
 ---
 
 ## Core Network Model
-<div align="right">[↑ Back to Table of Contents](#-table-of-contents)</div>
 
 ### Fundamental Principles
 
@@ -141,7 +140,6 @@ Kubernetes networking is built on these core requirements:
 ---
 
 ## Understanding Kubernetes Networks
-<div align="right">[↑ Back to Table of Contents](#-table-of-contents)</div>
 
 Kubernetes uses three distinct network address spaces that work together:
 
@@ -480,10 +478,11 @@ Service Network: 10.96.0.0/12
   - Your app services:     10.96.x.x
 ```
 
+[↑ Back to Table of Contents](#-table-of-contents)
+
 ---
 
 ## Container-to-Container Communication
-<div align="right">[↑ Back to Table of Contents](#-table-of-contents)</div>
 
 ### Within the Same Pod
 
@@ -532,10 +531,11 @@ redis-cli -h localhost -p 6379
 curl http://localhost:8080/metrics
 ```
 
+[↑ Back to Table of Contents](#-table-of-contents)
+
 ---
 
 ## Pod-to-Pod Communication
-<div align="right">[↑ Back to Table of Contents](#-table-of-contents)</div>
 
 ### Same Node Communication
 
@@ -652,10 +652,11 @@ ip route show
 # 10.8.1.0/24 via 10.10.20.5 dev eth0
 ```
 
+[↑ Back to Table of Contents](#-table-of-contents)
+
 ---
 
 ## Service Discovery and Load Balancing
-<div align="right">[↑ Back to Table of Contents](#-table-of-contents)</div>
 
 ### kube-proxy: How Services Work
 
@@ -940,10 +941,11 @@ endpoints:
       ready: true
 ```
 
+[↑ Back to Table of Contents](#-table-of-contents)
+
 ---
 
 ## External Access Patterns
-<div align="right">[↑ Back to Table of Contents](#-table-of-contents)</div>
 
 ### Ingress Architecture
 
@@ -1054,10 +1056,11 @@ spec:
     port: 80
 ```
 
+[↑ Back to Table of Contents](#-table-of-contents)
+
 ---
 
 ## Network Policies
-<div align="right">[↑ Back to Table of Contents](#-table-of-contents)</div>
 
 Network Policies control traffic flow between Pods (Layer 3/4 firewall rules).
 
@@ -1139,10 +1142,11 @@ spec:
 - ✅ Supports: Calico, Cilium, Weave
 - ❌ Doesn't support: Flannel (basic mode)
 
+[↑ Back to Table of Contents](#-table-of-contents)
+
 ---
 
 ## DNS Resolution
-<div align="right">[↑ Back to Table of Contents](#-table-of-contents)</div>
 
 ### CoreDNS Architecture
 
@@ -1265,10 +1269,11 @@ spec:
         value: "5"
 ```
 
+[↑ Back to Table of Contents](#-table-of-contents)
+
 ---
 
 ## Summary Reference
-<div align="right">[↑ Back to Table of Contents](#-table-of-contents)</div>
 
 ### Communication Matrix
 
@@ -1357,6 +1362,8 @@ curl http://<node-ip>:<node-port>
 - Forget to implement NetworkPolicies
 - Use host network mode unless necessary
 - Bypass Services for Pod-to-Pod communication
+
+[↑ Back to Table of Contents](#-table-of-contents)
 
 ---
 
