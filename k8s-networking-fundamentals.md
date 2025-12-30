@@ -135,7 +135,7 @@ Kubernetes networking is built on these core requirements:
 | **[CNI Plugin](cni.md)** | Pod network implementation | Calico, Flannel, Cilium, Weave, etc. |
 | **[kube-proxy](kube-proxy.md)** | Service proxy and load balancing | iptables, IPVS, or eBPF modes |
 | **[CoreDNS](coredns.md)** | Service discovery via DNS | DNS server for cluster |
-| **Network Policy** | Traffic filtering rules | Implemented by CNI plugin |
+| **[Network Policy](network-policy.md)** | Traffic filtering rules | Implemented by CNI plugin |
 
 ---
 
