@@ -4,9 +4,6 @@
 * [Containers: What They Are and Why They're Changing the World](docs/containers.md)
 * [What Is Docker and Why Container Orchestration Is Required](docs/docker-and-orchestration.md)
 * [What Is Kubernetes?](docs/what-is-kubernetes.md)
-  * [Where Is Kubernetes?](https://github.com/kubernetes/kubernetes) - Official GitHub Repository
-  * Why is it called K8s? - Covered in [What Is Kubernetes](docs/what-is-kubernetes.md)
-  * K8s Benefits and Operating Principles - Covered in [What Is Kubernetes](docs/what-is-kubernetes.md)
 * [What Are Microservices?](docs/microservices.md)
 * [K8s Cluster Architecture Overview](https://kubernetes.io/docs/concepts/architecture/)
   * [Control Plane Nodes](docs/control-plane-node.md)
