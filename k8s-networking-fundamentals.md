@@ -132,7 +132,7 @@ Kubernetes networking is built on these core requirements:
 |-----------|---------------|----------------|
 | **[Container Runtime](container-runtime.md)** | Pod network namespace setup | CRI-compatible runtime (containerd, CRI-O) |
 | **[Pause Container](pause-containers.md)** | Maintains Pod network namespace | Automatically created per Pod |
-| **CNI Plugin** | Pod network implementation | Calico, Flannel, Cilium, Weave, etc. |
+| **[CNI Plugin](cni.md)** | Pod network implementation | Calico, Flannel, Cilium, Weave, etc. |
 | **[kube-proxy](kube-proxy.md)** | Service proxy and load balancing | iptables, IPVS, or eBPF modes |
 | **CoreDNS** | Service discovery via DNS | DNS server for cluster |
 | **Network Policy** | Traffic filtering rules | Implemented by CNI plugin |
