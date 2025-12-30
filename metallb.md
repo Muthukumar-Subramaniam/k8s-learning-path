@@ -186,7 +186,9 @@ spec:
 
 ### Overview
 
-Layer 3 mode uses BGP (Border Gateway Protocol) to announce external IPs. Each node peers with your network router(s) and advertises routes, enabling true load balancing across multiple nodes.
+Layer 3 mode uses [BGP (Border Gateway Protocol)](bgp.md) to announce external IPs. Each node peers with your network router(s) and advertises routes, enabling true load balancing across multiple nodes.
+
+> 💡 **Learn More**: See [bgp.md](bgp.md) for comprehensive BGP concepts and how it works.
 
 ### How It Works
 

@@ -634,7 +634,7 @@ Pods on different nodes communicate through the CNI network implementation.
 |--------|-------------|--------------|----------|
 | **Overlay Network** | Flannel (VXLAN), Weave | Encapsulates packets in UDP/VXLAN tunnel | Simple setup, works across any network |
 | **IP-in-IP** | Calico | Encapsulates IP packet in another IP packet | Better performance than VXLAN |
-| **BGP Routing** | Calico (BGP mode) | Uses BGP to advertise Pod routes | Best performance, requires BGP support |
+| **BGP Routing** | Calico ([BGP](bgp.md) mode) | Uses [BGP](bgp.md) to advertise Pod routes | Best performance, requires BGP support |
 | **eBPF** | Cilium | Uses eBPF for kernel-level packet processing | Modern, high-performance, observability |
 
 ### Example: Cross-Node Pod Communication
@@ -863,7 +863,7 @@ Kubernetes LoadBalancer services behave differently depending on the environment
 | **Cloud (AWS)** | AWS ELB/NLB/ALB | Cloud provider provisions load balancer automatically |
 | **Cloud (GCP)** | Google Cloud Load Balancer | GCP creates external load balancer with health checks |
 | **Cloud (Azure)** | Azure Load Balancer | Azure provisions L4 load balancer with public IP |
-| **Bare Metal** | [MetalLB](metallb.md) | Software-based load balancer using L2 (ARP) or L3 (BGP) |
+| **Bare Metal** | [MetalLB](metallb.md) | Software-based load balancer using L2 (ARP) or L3 ([BGP](bgp.md)) |
 | **On-Premises** | [MetalLB](metallb.md) / F5 / HAProxy | Requires manual configuration or MetalLB |
 
 #### Cloud vs On-Premises Load Balancing
@@ -910,7 +910,7 @@ my-app   LoadBalancer   10.106.190.47   10.10.20.201   80:30681/TCP
 
 **MetalLB provides two modes**:
 - **[Layer 2 Mode](metallb.md#layer-2-mode)**: Uses ARP, one node handles traffic (simple setup)
-- **[Layer 3 Mode](metallb.md#layer-3-bgp-mode)**: Uses BGP, true load balancing across nodes (production)
+- **[Layer 3 Mode](metallb.md#layer-3-bgp-mode)**: Uses [BGP](bgp.md), true load balancing across nodes (production)
 
 > 📖 **Detailed Guide**: See [metallb.md](metallb.md) for comprehensive MetalLB setup, Layer 2 vs Layer 3 comparison, and configuration examples
 
