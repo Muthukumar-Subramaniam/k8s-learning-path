@@ -109,7 +109,7 @@ CNI plugins are configured through files in `/etc/cni/net.d/`:
 |--------|------------------|------------------|-------------|------------|----------|
 | **Calico** | L3 BGP routing | ✅ Advanced | High | Medium | Production, security-focused |
 | **Flannel** | VXLAN overlay | ❌ None | Medium | Low | Simple clusters, learning |
-| **Cilium** | eBPF | ✅ L7 aware | Very High | High | Modern, observability |
+| **Cilium** | [eBPF](ebpf.md) | ✅ L7 aware | Very High | High | Modern, observability |
 | **Weave** | Mesh overlay | ✅ Basic | Medium | Low | Simple setup |
 | **Canal** | Flannel + Calico | ✅ Calico policies | Medium | Medium | Flannel simplicity + policies |
 | **Antrea** | OVS-based | ✅ Advanced | High | Medium | VMware environments |
@@ -167,7 +167,7 @@ CNI plugins are configured through files in `/etc/cni/net.d/`:
 
 ### 2. Flannel
 
-**Architecture**: VXLAN overlay network
+**Architecture**: [VXLAN](overlay-networks.md#vxlan) [overlay network](overlay-networks.md)
 
 ```
 ┌──────────────────────────────────────────────────────┐
@@ -246,7 +246,7 @@ CNI plugins are configured through files in `/etc/cni/net.d/`:
 ```
 
 **Features**:
-- eBPF-based dataplane (kernel-level packet processing)
+- [eBPF](ebpf.md)-based dataplane (kernel-level packet processing)
 - L3/L4 and L7 network policies
 - Service mesh capabilities
 - Advanced observability with Hubble

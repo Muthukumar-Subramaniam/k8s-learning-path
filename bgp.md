@@ -231,7 +231,7 @@ Calico uses BGP to advertise Pod network routes across the cluster.
 
 **Benefits**:
 - No encapsulation overhead (native routing)
-- Better performance (no VXLAN/IP-in-IP)
+- Better performance (no [VXLAN](overlay-networks.md#vxlan)/IP-in-IP)
 - Works well with existing network infrastructure
 - Fine-grained control over routing policies
 
@@ -274,13 +274,13 @@ MetalLB uses BGP to advertise LoadBalancer service IPs to the network.
 │                                                             │
 │  Service IP: 192.168.1.100 advertised via BGP to router    │
 │  Router learns: 192.168.1.100 → 192.168.1.10/11/12         │
-│  Traffic distributed using ECMP (Equal Cost Multi-Path)    │
+│  Traffic distributed using [ECMP](ecmp.md) (Equal Cost Multi-Path)    │
 │                                                             │
 └─────────────────────────────────────────────────────────────┘
 ```
 
 **Benefits**:
-- True load balancing across multiple nodes (ECMP)
+- True load balancing across multiple nodes ([ECMP](ecmp.md))
 - Fast failover (BGP convergence)
 - No single point of failure
 - Works with existing network infrastructure

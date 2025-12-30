@@ -25,7 +25,7 @@
 Kubernetes networking is built on these core requirements:
 
 1. **Every Pod gets its own unique cluster-wide IP address**
-2. **All Pods can communicate with all other Pods without NAT** (Network Address Translation)
+2. **All Pods can communicate with all other Pods without [NAT](nat.md)** (Network Address Translation)
 3. **Agents on a node can communicate with all Pods on that node**
 4. **Pods share their network namespace with their containers**
 
@@ -133,7 +133,7 @@ Kubernetes networking is built on these core requirements:
 | **[Container Runtime](container-runtime.md)** | Pod network namespace setup | CRI-compatible runtime (containerd, CRI-O) |
 | **[Pause Container](pause-containers.md)** | Maintains Pod network namespace | Automatically created per Pod |
 | **[CNI Plugin](cni.md)** | Pod network implementation | Calico, Flannel, Cilium, Weave, etc. |
-| **[kube-proxy](kube-proxy.md)** | Service proxy and load balancing | iptables, IPVS, or eBPF modes |
+| **[kube-proxy](kube-proxy.md)** | Service proxy and load balancing | [iptables](linux-networking.md#iptables), [IPVS](linux-networking.md#ipvs-ip-virtual-server), or [eBPF](ebpf.md) modes |
 | **[CoreDNS](coredns.md)** | Service discovery via DNS | DNS server for cluster |
 | **[Network Policy](network-policy.md)** | Traffic filtering rules | Implemented by CNI plugin |
 
@@ -181,6 +181,8 @@ The **Node Network** is the physical or VM network where Kubernetes nodes reside
 ### 2. Pod Network (Overlay Network)
 
 The **Pod Network** is a virtual network managed by the CNI plugin where Pods get their IP addresses.
+
+> 📖 **Deep Dive**: See [overlay-networks.md](overlay-networks.md) for detailed explanation of overlay networks, VXLAN, and encapsulation methods.
 
 ```
 ┌──────────────────────────────────────────────────────────────┐
@@ -660,15 +662,15 @@ ip route show
 
 ### kube-proxy: How Services Work
 
-**kube-proxy** runs on every node and makes Kubernetes Services work by translating Service virtual IPs into actual Pod IPs. It watches the API server for Service and Endpoint changes, then programs network rules (iptables/IPVS/eBPF) to route traffic to the correct Pods.
+**kube-proxy** runs on every node and makes Kubernetes Services work by translating Service virtual IPs into actual Pod IPs. It watches the API server for Service and Endpoint changes, then programs network rules ([iptables](linux-networking.md#iptables)/[IPVS](linux-networking.md#ipvs-ip-virtual-server)/[eBPF](ebpf.md)) to route traffic to the correct Pods.
 
 **kube-proxy Modes:**
 
 | Mode | How It Works | Performance | Use Case |
 |------|--------------|-------------|----------|
-| **iptables** | Creates iptables rules for each service | Good | Default, most compatible |
-| **IPVS** | Uses Linux IPVS for load balancing | Better | Large clusters (>1000 services) |
-| **eBPF** | Uses eBPF programs in kernel | Best | Modern, requires newer kernels |
+| **[iptables](linux-networking.md#iptables)** | Creates iptables rules for each service | Good | Default, most compatible |
+| **[IPVS](linux-networking.md#ipvs-ip-virtual-server)** | Uses Linux IPVS for load balancing | Better | Large clusters (>1000 services) |
+| **[eBPF](ebpf.md)** | Uses eBPF programs in kernel | Best | Modern, requires newer kernels |
 
 > 📖 **Detailed Guide**: See [kube-proxy.md](kube-proxy.md) for complete explanation of how kube-proxy works, detailed mode comparisons, traffic flow diagrams, configuration examples, and troubleshooting
 
