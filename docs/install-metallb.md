@@ -8,7 +8,7 @@ kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/${metallb_ver
 ```
 ### Wait for all MetalLB pods to be in running state
 ```
-kubectl get pods -n metallb --watch
+kubectl get pods -n metallb-system --watch
 ```
 ### Create MetalLB IPAddressPool and L2Advertisement manifest
 ```
