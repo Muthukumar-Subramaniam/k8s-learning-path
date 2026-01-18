@@ -54,17 +54,17 @@ Repository for storing and distributing images:
                 ▼
 ┌─────────────────────────────────────────┐
 │          Docker Daemon (dockerd)        │
-│  ┌─────────────────────────────────┐   │
-│  │   Container Management          │   │
-│  │   • Create  • Start  • Stop     │   │
-│  └─────────────────────────────────┘   │
-│  ┌─────────────────────────────────┐   │
-│  │   Image Management              │   │
-│  │   • Build   • Pull   • Push     │   │
-│  └─────────────────────────────────┘   │
-│  ┌─────────────────────────────────┐   │
-│  │   Network & Volume Management   │   │
-│  └─────────────────────────────────┘   │
+│  ┌─────────────────────────────────┐    │
+│  │   Container Management          │    │
+│  │   • Create  • Start  • Stop     │    │
+│  └─────────────────────────────────┘    │
+│  ┌─────────────────────────────────┐    │
+│  │   Image Management              │    │
+│  │   • Build   • Pull   • Push     │    │
+│  └─────────────────────────────────┘    │
+│  ┌─────────────────────────────────┐    │
+│  │   Network & Volume Management   │    │
+│  └─────────────────────────────────┘    │
 └─────────────────────────────────────────┘
                 │
                 ▼
@@ -140,29 +140,29 @@ docker run app-v2
 │         Container Orchestration Platform         │
 ├──────────────────────────────────────────────────┤
 │                                                  │
-│  ┌─────────────────┐  ┌──────────────────────┐ │
-│  │  Scheduling     │  │  Service Discovery   │ │
-│  │  • Placement    │  │  • DNS               │ │
-│  │  • Resources    │  │  • Load Balancing    │ │
-│  └─────────────────┘  └──────────────────────┘ │
+│  ┌─────────────────┐  ┌──────────────────────┐   │
+│  │  Scheduling     │  │  Service Discovery   │   │
+│  │  • Placement    │  │  • DNS               │   │
+│  │  • Resources    │  │  • Load Balancing    │   │
+│  └─────────────────┘  └──────────────────────┘   │
 │                                                  │
-│  ┌─────────────────┐  ┌──────────────────────┐ │
-│  │  Scaling        │  │  Self-Healing        │ │
-│  │  • Auto-scale   │  │  • Health Checks     │ │
-│  │  • Manual       │  │  • Auto-restart      │ │
-│  └─────────────────┘  └──────────────────────┘ │
+│  ┌─────────────────┐  ┌──────────────────────┐   │
+│  │  Scaling        │  │  Self-Healing        │   │
+│  │  • Auto-scale   │  │  • Health Checks     │   │
+│  │  • Manual       │  │  • Auto-restart      │   │
+│  └─────────────────┘  └──────────────────────┘   │
 │                                                  │
-│  ┌─────────────────┐  ┌──────────────────────┐ │
-│  │  Networking     │  │  Storage             │ │
-│  │  • Overlay Net  │  │  • Volumes           │ │
-│  │  • Ingress      │  │  • Persistence       │ │
-│  └─────────────────┘  └──────────────────────┘ │
+│  ┌─────────────────┐  ┌──────────────────────┐   │
+│  │  Networking     │  │  Storage             │   │
+│  │  • Overlay Net  │  │  • Volumes           │   │
+│  │  • Ingress      │  │  • Persistence       │   │
+│  └─────────────────┘  └──────────────────────┘   │
 │                                                  │
-│  ┌─────────────────┐  ┌──────────────────────┐ │
-│  │  Updates        │  │  Configuration       │ │
-│  │  • Rolling      │  │  • ConfigMaps        │ │
-│  │  • Rollback     │  │  • Secrets           │ │
-│  └─────────────────┘  └──────────────────────┘ │
+│  ┌─────────────────┐  ┌──────────────────────┐   │
+│  │  Updates        │  │  Configuration       │   │
+│  │  • Rolling      │  │  • ConfigMaps        │   │
+│  │  • Rollback     │  │  • Secrets           │   │
+│  └─────────────────┘  └──────────────────────┘   │
 │                                                  │
 └──────────────────────────────────────────────────┘
 ```
@@ -261,17 +261,17 @@ Even with Kubernetes, Docker remains important:
 │        Development Phase               │
 │  • Write Dockerfile                    │
 │  • docker build → Create images        │
-│  • docker run → Test locally          │
-│  • docker push → Push to registry     │
+│  • docker run → Test locally           │
+│  • docker push → Push to registry      │
 └────────────────────────────────────────┘
                   │
                   ▼
 ┌────────────────────────────────────────┐
 │        Production Phase                │
-│  • Kubernetes pulls images            │
-│  • Schedules containers (Pods)        │
-│  • Manages lifecycle                  │
-│  • Handles networking & storage       │
+│  • Kubernetes pulls images             │
+│  • Schedules containers (Pods)         │
+│  • Manages lifecycle                   │
+│  • Handles networking & storage        │
 └────────────────────────────────────────┘
 ```
 
