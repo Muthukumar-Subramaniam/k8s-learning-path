@@ -2562,6 +2562,7 @@ sudo crictl inspect <container-id>            # Inspect container
 - [unshare Man Page](https://man7.org/linux/man-pages/man1/unshare.1.html)
 - [nsenter Man Page](https://man7.org/linux/man-pages/man1/nsenter.1.html)
 - [ip-netns Man Page](https://man7.org/linux/man-pages/man8/ip-netns.8.html)
+- [Linux Cgroups (Resource Management)](cgroups.md)
 - [Understanding Containers](containers.md)
 - [Docker Guide](docker.md)
 - [Kubernetes Pods](pods.md)
