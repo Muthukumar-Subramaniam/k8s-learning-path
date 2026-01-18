@@ -175,25 +175,36 @@ The industry-standard container orchestration platform:
 - **Features**: Complete orchestration, extensive ecosystem
 - **Use Case**: Production workloads, any scale
 - **Community**: Largest container orchestration community
+- **Market Share**: ~88% of container orchestration deployments
 
-### 2. Docker Swarm
+### 2. Red Hat OpenShift
+Most popular enterprise Kubernetes platform:
+- **Origin**: Red Hat (IBM)
+- **Features**: Kubernetes + developer tools, CI/CD, enhanced security, built-in registry
+- **Open Source**: Yes - OKD (OpenShift Kubernetes Distribution)
+- **Use Case**: Enterprise production, regulated industries, developer productivity
+- **Market Share**: Leading enterprise Kubernetes distribution
+
+### 3. Docker Swarm
 Docker's native orchestration solution:
 - **Origin**: Docker Inc.
 - **Features**: Simple setup, integrated with Docker
 - **Use Case**: Smaller deployments, simpler requirements
-- **Note**: Less feature-rich than Kubernetes
-
-### 3. Apache Mesos
-Distributed systems kernel:
-- **Origin**: UC Berkeley (2009), now Apache
-- **Features**: Data center OS, multi-framework
-- **Use Case**: Large-scale deployments, diverse workloads
+- **Note**: Less feature-rich than Kubernetes, declining adoption
 
 ### 4. HashiCorp Nomad
 Simple and flexible orchestrator:
 - **Origin**: HashiCorp
 - **Features**: Multi-platform, not just containers
-- **Use Case**: Mixed workload environments
+- **Use Case**: Mixed workload environments, edge computing
+- **Note**: Growing in HashiCorp ecosystem users
+
+### 5. Apache Mesos
+Distributed systems kernel (legacy):
+- **Origin**: UC Berkeley (2009), now Apache
+- **Features**: Data center OS, multi-framework
+- **Use Case**: Large-scale deployments (historical)
+- **Note**: Declining adoption, many migrating to Kubernetes
 
 ## Comparison: Docker vs Kubernetes
 
