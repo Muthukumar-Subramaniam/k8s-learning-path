@@ -20,92 +20,92 @@ At its core, a **container is just a Linux process** — but with special powers
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│          The Evolution of Application Deployment           │
+│          The Evolution of Application Deployment            │
 ├─────────────────────────────────────────────────────────────┤
 │                                                             │
 │  TRADITIONAL (Physical Servers)                             │
-│  ┌────────────────────────────────────────────────────┐    │
-│  │  Server 1         Server 2         Server 3        │    │
-│  │  ┌──────────┐    ┌──────────┐    ┌──────────┐     │    │
-│  │  │  App A   │    │  App B   │    │  App C   │     │    │
-│  │  │          │    │          │    │          │     │    │
-│  │  │ ┌──────┐ │    │ ┌──────┐ │    │ ┌──────┐ │     │    │
-│  │  │ │ OS   │ │    │ │ OS   │ │    │ │ OS   │ │     │    │
-│  │  │ └──────┘ │    │ └──────┘ │    │ └──────┘ │     │    │
-│  │  │ Hardware │    │ Hardware │    │ Hardware │     │    │
-│  │  └──────────┘    └──────────┘    └──────────┘     │    │
-│  └────────────────────────────────────────────────────┘    │
+│  ┌────────────────────────────────────────────────────┐     │
+│  │  Server 1         Server 2         Server 3        │     │
+│  │  ┌──────────┐    ┌──────────┐    ┌──────────┐      │     │
+│  │  │  App A   │    │  App B   │    │  App C   │      │     │
+│  │  │          │    │          │    │          │      │     │
+│  │  │ ┌──────┐ │    │ ┌──────┐ │    │ ┌──────┐ │      │     │
+│  │  │ │ OS   │ │    │ │ OS   │ │    │ │ OS   │ │      │     │
+│  │  │ └──────┘ │    │ └──────┘ │    │ └──────┘ │      │     │
+│  │  │ Hardware │    │ Hardware │    │ Hardware │      │     │
+│  │  └──────────┘    └──────────┘    └──────────┘      │     │
+│  └────────────────────────────────────────────────────┘     │
 │                                                             │
 │  Problems:                                                  │
-│  ❌ One app per server (waste of resources)                │
-│  ❌ Expensive hardware for each app                        │
-│  ❌ Slow deployment (days/weeks)                           │
-│  ❌ Hard to scale                                          │
-│  ❌ Environment inconsistencies                            │
+│  ❌ One app per server (waste of resources)                 │
+│  ❌ Expensive hardware for each app                         │
+│  ❌ Slow deployment (days/weeks)                            │
+│  ❌ Hard to scale                                           │
+│  ❌ Environment inconsistencies                             │
 │                                                             │
 ├─────────────────────────────────────────────────────────────┤
 │                                                             │
 │  VIRTUALIZED (Virtual Machines)                             │
-│  ┌────────────────────────────────────────────────────┐    │
-│  │              Single Physical Server                │    │
-│  │  ┌──────────┐  ┌──────────┐  ┌──────────┐        │    │
-│  │  │   VM 1   │  │   VM 2   │  │   VM 3   │        │    │
-│  │  │  App A   │  │  App B   │  │  App C   │        │    │
-│  │  │┌────────┐│  │┌────────┐│  │┌────────┐│        │    │
-│  │  ││Guest OS││  ││Guest OS││  ││Guest OS││        │    │
-│  │  │└────────┘│  │└────────┘│  │└────────┘│        │    │
-│  │  └──────────┘  └──────────┘  └──────────┘        │    │
-│  │  ┌──────────────────────────────────────────┐     │    │
-│  │  │         Hypervisor (VMware/KVM)         │     │    │
-│  │  └──────────────────────────────────────────┘     │    │
-│  │  ┌──────────────────────────────────────────┐     │    │
-│  │  │         Host Operating System            │     │    │
-│  │  └──────────────────────────────────────────┘     │    │
-│  │  ┌──────────────────────────────────────────┐     │    │
-│  │  │            Physical Hardware             │     │    │
-│  │  └──────────────────────────────────────────┘     │    │
-│  └────────────────────────────────────────────────────┘    │
+│  ┌────────────────────────────────────────────────────┐     │
+│  │              Single Physical Server                │     │
+│  │  ┌──────────┐  ┌──────────┐  ┌──────────┐          │     │
+│  │  │   VM 1   │  │   VM 2   │  │   VM 3   │          │     │
+│  │  │  App A   │  │  App B   │  │  App C   │          │     │
+│  │  │┌────────┐│  │┌────────┐│  │┌────────┐│          │     │
+│  │  ││Guest OS││  ││Guest OS││  ││Guest OS││          │     │
+│  │  │└────────┘│  │└────────┘│  │└────────┘│          │     │
+│  │  └──────────┘  └──────────┘  └──────────┘          │     │
+│  │  ┌──────────────────────────────────────────┐      │     │
+│  │  │         Hypervisor (VMware/KVM)          │      │     │
+│  │  └──────────────────────────────────────────┘      │     │
+│  │  ┌──────────────────────────────────────────┐      │     │
+│  │  │         Host Operating System            │      │     │
+│  │  └──────────────────────────────────────────┘      │     │
+│  │  ┌──────────────────────────────────────────┐      │     │
+│  │  │            Physical Hardware             │      │     │
+│  │  └──────────────────────────────────────────┘      │     │
+│  └────────────────────────────────────────────────────┘     │
 │                                                             │
 │  Improvements:                                              │
-│  ✅ Better resource utilization                            │
-│  ✅ Multiple apps on one server                            │
-│  ✅ Isolation between apps                                 │
+│  ✅ Better resource utilization                             │
+│  ✅ Multiple apps on one server                             │
+│  ✅ Isolation between apps                                  │
 │                                                             │
 │  But still:                                                 │
-│  ❌ Heavy (full OS per VM = GBs)                           │
-│  ❌ Slow boot (minutes)                                    │
-│  ❌ Resource overhead (multiple OS copies)                 │
+│  ❌ Heavy (full OS per VM = GBs)                            │
+│  ❌ Slow boot (minutes)                                     │
+│  ❌ Resource overhead (multiple OS copies)                  │
 │                                                             │
 ├─────────────────────────────────────────────────────────────┤
 │                                                             │
 │  CONTAINERIZED (Modern Approach)                            │
-│  ┌────────────────────────────────────────────────────┐    │
-│  │              Single Physical Server                │    │
-│  │  ┌────────┐  ┌────────┐  ┌────────┐  ┌────────┐  │    │
-│  │  │Container│ │Container│ │Container│ │Container│ │    │
-│  │  │  App A │  │  App B │  │  App C │  │  App D │  │    │
-│  │  │ +Libs  │  │ +Libs  │  │ +Libs  │  │ +Libs  │  │    │
-│  │  └────────┘  └────────┘  └────────┘  └────────┘  │    │
-│  │  ┌──────────────────────────────────────────┐     │    │
-│  │  │    Container Runtime (Docker/containerd) │     │    │
-│  │  └──────────────────────────────────────────┘     │    │
-│  │  ┌──────────────────────────────────────────┐     │    │
-│  │  │         Host Operating System            │     │    │
-│  │  │         (Shared Kernel)                  │     │    │
-│  │  └──────────────────────────────────────────┘     │    │
-│  │  ┌──────────────────────────────────────────┐     │    │
-│  │  │            Physical Hardware             │     │    │
-│  │  └──────────────────────────────────────────┘     │    │
-│  └────────────────────────────────────────────────────┘    │
+│  ┌────────────────────────────────────────────────────┐     │
+│  │              Single Physical Server                │     │
+│  │  ┌────────┐ ┌────────┐  ┌────────┐  ┌────────┐     │     │
+│  │  │Container │Container  │Container  │Container     │     │
+│  │  │  App A │ │  App B │  │  App C │  │  App D │     │     │
+│  │  │ +Libs  │ │ +Libs  │  │ +Libs  │  │ +Libs  │     │     │
+│  │  └────────┘ └────────┘  └────────┘  └────────┘     │     │
+│  │  ┌──────────────────────────────────────────┐      │     │
+│  │  │    Container Runtime (Docker/containerd) │      │     │
+│  │  └──────────────────────────────────────────┘      │     │
+│  │  ┌──────────────────────────────────────────┐      │     │
+│  │  │         Host Operating System            │      │     │
+│  │  │         (Shared Kernel)                  │      │     │
+│  │  └──────────────────────────────────────────┘      │     │
+│  │  ┌──────────────────────────────────────────┐      │     │
+│  │  │            Physical Hardware             │      │     │
+│  │  └──────────────────────────────────────────┘      │     │
+│  └────────────────────────────────────────────────────┘     │
 │                                                             │
 │  Advantages:                                                │
-│  ✅ Lightweight (MBs vs GBs)                               │
-│  ✅ Fast startup (milliseconds)                            │
-│  ✅ High density (100s per server)                         │
-│  ✅ Shared kernel = less overhead                          │
-│  ✅ Portable across environments                           │
-│  ✅ Consistent from dev to production                      │
-│  ✅ Easy to scale horizontally                             │
+│  ✅ Lightweight (MBs vs GBs)                                │
+│  ✅ Fast startup (milliseconds)                             │
+│  ✅ High density (100s per server)                          │
+│  ✅ Shared kernel = less overhead                           │
+│  ✅ Portable across environments                            │
+│  ✅ Consistent from dev to production                       │
+│  ✅ Easy to scale horizontally                              │
 │                                                             │
 └─────────────────────────────────────────────────────────────┘
 ```
@@ -124,17 +124,17 @@ At its core, a **container is just a Linux process** — but with special powers
 ├─────────────────────────────────────────────────────────────┤
 │                                                             │
 │  Host Operating System (Linux)                              │
-│  ┌─────────────────────────────────────────────────────┐   │
-│  │          Linux Kernel (Shared)                      │   │
-│  │  ┌──────────────┐ ┌──────────────┐ ┌──────────────┐│   │
-│  │  │ Container 1  │ │ Container 2  │ │ Container 3  ││   │
-│  │  │             ││ │             ││ │             ││   │
-│  │  │ App + Libs  ││ │ App + Libs  ││ │ App + Libs  ││   │
-│  │  │             ││ │             ││ │             ││   │
-│  │  │ Namespaces  ││ │ Namespaces  ││ │ Namespaces  ││   │
-│  │  │ cgroups     ││ │ cgroups     ││ │ cgroups     ││   │
-│  │  └──────────────┘ └──────────────┘ └──────────────┘│   │
-│  └─────────────────────────────────────────────────────┘   │
+│  ┌─────────────────────────────────────────────────────┐    │
+│  │          Linux Kernel (Shared)                      │    │
+│  │  ┌──────────────┐ ┌──────────────┐ ┌──────────────┐ │    │
+│  │  │ Container 1  │ │ Container 2  │ │ Container 3  │ │    │
+│  │  │              │ │              │ │              │ │    │
+│  │  │ App + Libs   │ │ App + Libs   │ │ App + Libs   │ │    │
+│  │  │              │ │              │ │              │ │    │
+│  │  │ Namespaces   │ │ Namespaces   │ │ Namespaces   │ │    │
+│  │  │ cgroups      │ │ cgroups      │ │ cgroups      │ │    │
+│  │  └──────────────┘ └──────────────┘ └──────────────┘ │    │
+│  └─────────────────────────────────────────────────────┘    │
 │                                                             │
 └─────────────────────────────────────────────────────────────┘
 ```
@@ -159,30 +159,30 @@ Containers leverage fundamental Linux kernel features to provide isolation and r
 **Namespaces** provide isolated views of system resources. Each container gets its own namespace, making it think it's the only process on the system.
 
 ```
-┌─────────────────────────────────────────────────────────────┐
-│                  Linux Namespaces                           │
-├─────────────────────────────────────────────────────────────┤
-│                                                             │
-│  ┌─────────────┐           ┌─────────────┐                 │
-│  │ Container A │           │ Container B │                 │
-│  ├─────────────┤           ├─────────────┤                 │
-│  │ PID NS      │           │ PID NS      │                 │
-│  │ • PID 1     │           │ • PID 1     │                 │
-│  │ • PID 2     │           │ • PID 2     │                 │
-│  ├─────────────┤           ├─────────────┤                 │
-│  │ NET NS      │           │ NET NS      │                 │
-│  │ • eth0      │           │ • eth0      │                 │
-│  │ • 10.8.0.5  │           │ • 10.8.0.6  │                 │
-│  ├─────────────┤           ├─────────────┤                 │
-│  │ MNT NS      │           │ MNT NS      │                 │
-│  │ • /app      │           │ • /app      │                 │
-│  │ • /data     │           │ • /data     │                 │
-│  └─────────────┘           └─────────────┘                 │
-│                                                             │
-│  Host sees different PIDs: 12345, 12346                    │
-│  Containers see: PID 1, PID 1                              │
-│                                                             │
-└─────────────────────────────────────────────────────────────┘
+┌────────────────────────────────────────────────┐
+│                  Linux Namespaces              │
+├────────────────────────────────────────────────┤
+│                                                │
+│  ┌─────────────┐           ┌─────────────┐     │
+│  │ Container A │           │ Container B │     │
+│  ├─────────────┤           ├─────────────┤     │
+│  │ PID NS      │           │ PID NS      │     │
+│  │ • PID 1     │           │ • PID 1     │     │
+│  │ • PID 2     │           │ • PID 2     │     │
+│  ├─────────────┤           ├─────────────┤     │
+│  │ NET NS      │           │ NET NS      │     │
+│  │ • eth0      │           │ • eth0      │     │
+│  │ • 10.8.0.5  │           │ • 10.8.0.6  │     │
+│  ├─────────────┤           ├─────────────┤     │
+│  │ MNT NS      │           │ MNT NS      │     │
+│  │ • /app      │           │ • /app      │     │
+│  │ • /data     │           │ • /data     │     │
+│  └─────────────┘           └─────────────┘     │
+│                                                │
+│  Host sees different PIDs: 12345, 12346        │
+│  Containers see: PID 1, PID 1                  │
+│                                                │
+└────────────────────────────────────────────────┘
 ```
 
 #### Namespace Types
@@ -224,20 +224,20 @@ The container process thinks it's PID 1, but the host sees it as PID 12345!
 │                    cgroups Hierarchy                        │
 ├─────────────────────────────────────────────────────────────┤
 │                                                             │
-│                     System Resources                         │
-│  ┌───────────────────────────────────────────────────┐     │
-│  │  CPU: 4 cores  │  Memory: 16 GB  │  Disk I/O      │     │
-│  └───────────────────────────────────────────────────┘     │
-│                          │                                   │
+│                     System Resources                        │
+│  ┌───────────────────────────────────────────────────┐      │
+│  │  CPU: 4 cores  │  Memory: 16 GB  │  Disk I/O      │      │
+│  └───────────────────────────────────────────────────┘      │
+│                          │                                  │
 │              ┌───────────┼───────────┐                      │
 │              ▼           ▼           ▼                      │
-│      ┌────────────┐ ┌────────────┐ ┌────────────┐         │
-│      │Container A │ │Container B │ │Container C │         │
-│      ├────────────┤ ├────────────┤ ├────────────┤         │
-│      │CPU: 1 core │ │CPU: 2 cores│ │CPU: 0.5    │         │
-│      │Mem: 512MB  │ │Mem: 4GB    │ │Mem: 1GB    │         │
-│      │I/O: 10MB/s │ │I/O: 50MB/s │ │I/O: 5MB/s  │         │
-│      └────────────┘ └────────────┘ └────────────┘         │
+│      ┌────────────┐ ┌────────────┐ ┌────────────┐           │
+│      │Container A │ │Container B │ │Container C │           │
+│      ├────────────┤ ├────────────┤ ├────────────┤           │
+│      │CPU: 1 core │ │CPU: 2 cores│ │CPU: 0.5    │           │
+│      │Mem: 512MB  │ │Mem: 4GB    │ │Mem: 1GB    │           │
+│      │I/O: 10MB/s │ │I/O: 50MB/s │ │I/O: 5MB/s  │           │
+│      └────────────┘ └────────────┘ └────────────┘           │
 │                                                             │
 └─────────────────────────────────────────────────────────────┘
 ```
@@ -279,23 +279,23 @@ Union filesystems allow multiple directories to be overlaid, appearing as a sing
 ├─────────────────────────────────────────────────────────────┤
 │                                                             │
 │  Container View: Single /filesystem                         │
-│  ┌───────────────────────────────────────────────────┐     │
-│  │  /app, /etc, /usr, /var  (Merged view)           │     │
-│  └───────────────────────────────────────────────────┘     │
-│                        ▲                                     │
-│                        │                                     │
-│  ┌─────────────────────┴─────────────────────────────┐     │
-│  │          Container Layer (Read-Write)             │     │
-│  │  • Log files  • Temp files  • Changes            │     │
-│  ├───────────────────────────────────────────────────┤     │
-│  │          Application Layer (Read-Only)            │     │
-│  │  • App binaries  • Dependencies                   │     │
-│  ├───────────────────────────────────────────────────┤     │
-│  │          Base OS Layer (Read-Only)                │     │
-│  │  • /bin  • /usr  • /lib                          │     │
-│  └───────────────────────────────────────────────────┘     │
+│  ┌───────────────────────────────────────────────────┐      │
+│  │  /app, /etc, /usr, /var  (Merged view)            │      │
+│  └───────────────────────────────────────────────────┘      │
+│                        ▲                                    │
+│                        │                                    │
+│  ┌─────────────────────┴─────────────────────────────┐      │
+│  │          Container Layer (Read-Write)             │      │
+│  │  • Log files  • Temp files  • Changes             │      │
+│  ├───────────────────────────────────────────────────┤      │
+│  │          Application Layer (Read-Only)            │      │
+│  │  • App binaries  • Dependencies                   │      │
+│  ├───────────────────────────────────────────────────┤      │
+│  │          Base OS Layer (Read-Only)                │      │
+│  │  • /bin  • /usr  • /lib                           │      │
+│  └───────────────────────────────────────────────────┘      │
 │                                                             │
-│  Common implementations: OverlayFS, AUFS, Btrfs            │
+│  Common implementations: OverlayFS, AUFS, Btrfs             │
 │                                                             │
 └─────────────────────────────────────────────────────────────┘
 ```
@@ -312,35 +312,35 @@ Union filesystems allow multiple directories to be overlaid, appearing as a sing
 ├─────────────────────────────────────────────────────────────┤
 │                                                             │
 │  Host System (Linux)                                        │
-│  ┌─────────────────────────────────────────────────────┐   │
-│  │  Kernel Space                                       │   │
-│  │  ├─ Scheduler (CPU allocation)                      │   │
-│  │  ├─ Memory Management                               │   │
-│  │  ├─ Network Stack                                   │   │
-│  │  └─ Device Drivers                                  │   │
-│  └────────────────┬────────────────────────────────────┘   │
+│  ┌─────────────────────────────────────────────────────┐    │
+│  │  Kernel Space                                       │    │
+│  │  ├─ Scheduler (CPU allocation)                      │    │
+│  │  ├─ Memory Management                               │    │
+│  │  ├─ Network Stack                                   │    │
+│  │  └─ Device Drivers                                  │    │
+│  └────────────────┬────────────────────────────────────┘    │
 │                   │                                         │
-│  ┌────────────────┴────────────────────────────────────┐   │
-│  │  User Space                                         │   │
-│  │                                                      │   │
-│  │  Container Runtime (Docker/containerd)              │   │
-│  │  ├─ Image Management                                │   │
-│  │  ├─ Container Lifecycle                             │   │
-│  │  └─ API/CLI Interface                               │   │
-│  │                                                      │   │
-│  │  ┌──────────────────────────────────────────────┐  │   │
-│  │  │  Container Process Tree                      │  │   │
-│  │  │  ┌────────────────────────────────────────┐ │  │   │
-│  │  │  │ PID 1 (init/app)                       │ │  │   │
-│  │  │  │  └─ PID 2 (child process)              │ │  │   │
-│  │  │  │     └─ PID 3 (worker)                  │ │  │   │
-│  │  │  └────────────────────────────────────────┘ │  │   │
-│  │  │                                              │  │   │
-│  │  │  Namespaces: PID, NET, MNT, UTS, IPC, USER  │  │   │
-│  │  │  cgroups: CPU, Memory, I/O limits           │  │   │
-│  │  │  Capabilities: Dropped privileges           │  │   │
-│  │  └──────────────────────────────────────────────┘  │   │
-│  └─────────────────────────────────────────────────────┘   │
+│  ┌────────────────┴────────────────────────────────────┐    │
+│  │  User Space                                         │    │
+│  │                                                     │    │
+│  │  Container Runtime (Docker/containerd)              │    │
+│  │  ├─ Image Management                                │    │
+│  │  ├─ Container Lifecycle                             │    │
+│  │  └─ API/CLI Interface                               │    │
+│  │                                                     │    │
+│  │  ┌──────────────────────────────────────────────┐   │    │
+│  │  │  Container Process Tree                      │   │    │
+│  │  │  ┌────────────────────────────────────────┐  │   │    │
+│  │  │  │ PID 1 (init/app)                       │  │   │    │
+│  │  │  │  └─ PID 2 (child process)              │  │   │    │
+│  │  │  │     └─ PID 3 (worker)                  │  │   │    │
+│  │  │  └────────────────────────────────────────┘  │   │    │
+│  │  │                                              │   │    │
+│  │  │  Namespaces: PID, NET, MNT, UTS, IPC, USER   │   │    │
+│  │  │  cgroups: CPU, Memory, I/O limits            │   │    │
+│  │  │  Capabilities: Dropped privileges            │   │    │
+│  │  └──────────────────────────────────────────────┘   │    │
+│  └─────────────────────────────────────────────────────┘    │
 │                                                             │
 └─────────────────────────────────────────────────────────────┘
 ```
@@ -352,31 +352,31 @@ Union filesystems allow multiple directories to be overlaid, appearing as a sing
 │              Container Network Architecture                 │
 ├─────────────────────────────────────────────────────────────┤
 │                                                             │
-│  ┌────────────────────────────────────────────────────┐    │
-│  │  Physical Network (eth0: 192.168.1.10)           │    │
-│  └────────────────┬───────────────────────────────────┘    │
+│  ┌────────────────────────────────────────────────────┐     │
+│  │  Physical Network (eth0: 192.168.1.10)             │     │
+│  └────────────────┬───────────────────────────────────┘     │
 │                   │                                         │
-│  ┌────────────────┴───────────────────────────────────┐    │
-│  │  Host Namespace                                    │    │
-│  │  ┌──────────────────────────────────────────────┐ │    │
-│  │  │  Bridge: docker0 (172.17.0.1)                │ │    │
-│  │  │  ├─ NAT rules (iptables)                     │ │    │
-│  │  │  └─ Port forwarding                           │ │    │
-│  │  └──────┬──────────┬──────────┬─────────────────┘ │    │
-│  │         │          │          │                    │    │
-│  │    ┌────┴──┐  ┌────┴──┐  ┌───┴────┐              │    │
-│  │    │ veth0 │  │ veth1 │  │ veth2  │ (host side) │    │
-│  └────┴───────┴──┴───────┴──┴────────┴───────────────┘    │
-│         │          │          │                             │
-│         │          │          │                             │
-│  ┌──────┴──┐  ┌───┴─────┐  ┌─┴────────┐                   │
-│  │Container│  │Container│  │Container │                   │
-│  │    1    │  │    2    │  │    3     │                   │
-│  │         │  │         │  │          │                   │
-│  │ eth0    │  │ eth0    │  │ eth0     │ (container side) │
-│  │172.17.  │  │172.17.  │  │172.17.   │                   │
-│  │  0.2    │  │  0.3    │  │  0.4     │                   │
-│  └─────────┘  └─────────┘  └──────────┘                   │
+│  ┌────────────────┴──────────────────────────────────┐      │
+│  │  Host Namespace                                   │      │
+│  │  ┌─────────────────────────────────────────────┐  │      │
+│  │  │  Bridge: docker0 (172.17.0.1)               │  │      │
+│  │  │  ├─ NAT rules (iptables)                    │  │      │
+│  │  │  └─ Port forwarding                         │  │      │
+│  │  └──────┬──────────┬─────────┬─────────────────┘  │      │
+│  │         │          │         │                    │      │
+│  │    ┌────┴──┐  ┌────┴──┐  ┌───┴────┐               │      │
+│  │    │ veth0 │  │ veth1 │  │ veth2  │ (host side)   │      │
+│  └────┴───────┴──┴───────┴──┴────────┴───────────────┘      │
+│         │         │          │                              │
+│         │         │          │                              │
+│  ┌──────┴──┐  ┌───┴─────┐  ┌─┴────────┐                     │
+│  │Container│  │Container│  │Container │                     │
+│  │    1    │  │    2    │  │    3     │                     │
+│  │         │  │         │  │          │                     │
+│  │ eth0    │  │ eth0    │  │ eth0     │ (container side)    │
+│  │172.17.  │  │172.17.  │  │172.17.   │                     │
+│  │  0.2    │  │  0.3    │  │  0.4     │                     │
+│  └─────────┘  └─────────┘  └──────────┘                     │
 │                                                             │
 └─────────────────────────────────────────────────────────────┘
 ```
@@ -393,37 +393,37 @@ Union filesystems allow multiple directories to be overlaid, appearing as a sing
 ├──────────────────────────────────────────────────────────────┤
 │                                                              │
 │  VIRTUAL MACHINES              CONTAINERS                    │
-│  ┌────────────────────┐        ┌────────────────────┐       │
-│  │      VM 1          │        │   Container 1      │       │
-│  │  ┌──────────────┐  │        │  ┌──────────────┐  │       │
-│  │  │     App      │  │        │  │     App      │  │       │
-│  │  ├──────────────┤  │        │  ├──────────────┤  │       │
-│  │  │   Binaries   │  │        │  │   Binaries   │  │       │
-│  │  ├──────────────┤  │        │  └──────────────┘  │       │
-│  │  │  Guest OS    │  │        └────────────────────┘       │
+│  ┌────────────────────┐        ┌────────────────────┐        │
+│  │      VM 1          │        │   Container 1      │        │
+│  │  ┌──────────────┐  │        │  ┌──────────────┐  │        │
+│  │  │     App      │  │        │  │     App      │  │        │
+│  │  ├──────────────┤  │        │  ├──────────────┤  │        │
+│  │  │   Binaries   │  │        │  │   Binaries   │  │        │
+│  │  ├──────────────┤  │        │  └──────────────┘  │        │
+│  │  │  Guest OS    │  │        └────────────────────┘        │
 │  │  │  (Full OS)   │  │                                      │
-│  │  └──────────────┘  │        ┌────────────────────┐       │
-│  └────────────────────┘        │   Container 2      │       │
-│  ┌────────────────────┐        │  ┌──────────────┐  │       │
-│  │      VM 2          │        │  │     App      │  │       │
-│  │  ┌──────────────┐  │        │  ├──────────────┤  │       │
-│  │  │     App      │  │        │  │   Binaries   │  │       │
-│  │  ├──────────────┤  │        │  └──────────────┘  │       │
-│  │  │   Binaries   │  │        └────────────────────┘       │
+│  │  └──────────────┘  │        ┌────────────────────┐        │
+│  └────────────────────┘        │   Container 2      │        │
+│  ┌────────────────────┐        │  ┌──────────────┐  │        │
+│  │      VM 2          │        │  │     App      │  │        │
+│  │  ┌──────────────┐  │        │  ├──────────────┤  │        │
+│  │  │     App      │  │        │  │   Binaries   │  │        │
+│  │  ├──────────────┤  │        │  └──────────────┘  │        │
+│  │  │   Binaries   │  │        └────────────────────┘        │
 │  │  ├──────────────┤  │                                      │
-│  │  │  Guest OS    │  │        ┌──────────────────────────┐ │
-│  │  │  (Full OS)   │  │        │  Container Runtime       │ │
-│  │  └──────────────┘  │        │  (Docker/containerd)     │ │
-│  └────────────────────┘        └──────────────────────────┘ │
-│  ┌────────────────────────────────────────────────────────┐ │
-│  │            Hypervisor (ESXi, KVM, Hyper-V)            │ │
-│  └────────────────────────────────────────────────────────┘ │
-│  ┌────────────────────────────────────────────────────────┐ │
-│  │              Host Operating System                     │ │
-│  └────────────────────────────────────────────────────────┘ │
-│  ┌────────────────────────────────────────────────────────┐ │
-│  │              Physical Hardware                         │ │
-│  └────────────────────────────────────────────────────────┘ │
+│  │  │  Guest OS    │  │        ┌──────────────────────────┐  │
+│  │  │  (Full OS)   │  │        │  Container Runtime       │  │
+│  │  └──────────────┘  │        │  (Docker/containerd)     │  │
+│  └────────────────────┘        └──────────────────────────┘  │
+│  ┌────────────────────────────────────────────────────────┐  │
+│  │            Hypervisor (ESXi, KVM, Hyper-V)             │  │
+│  └────────────────────────────────────────────────────────┘  │
+│  ┌────────────────────────────────────────────────────────┐  │
+│  │              Host Operating System                     │  │
+│  └────────────────────────────────────────────────────────┘  │
+│  ┌────────────────────────────────────────────────────────┐  │
+│  │              Physical Hardware                         │  │
+│  └────────────────────────────────────────────────────────┘  │
 │                                                              │
 └──────────────────────────────────────────────────────────────┘
 ```
@@ -450,23 +450,23 @@ Union filesystems allow multiple directories to be overlaid, appearing as a sing
 │                 Resource Efficiency                          │
 ├──────────────────────────────────────────────────────────────┤
 │                                                              │
-│  Scenario: Running 10 web applications                      │
+│  Scenario: Running 10 web applications                       │
 │                                                              │
 │  Virtual Machines:                                           │
-│  ┌────────────────────────────────────────────────┐         │
-│  │ 10 VMs × 2GB RAM = 20GB RAM                    │         │
-│  │ 10 VMs × 20GB Disk = 200GB Disk                │         │
-│  │ Boot time: 10 VMs × 2min = 20 minutes          │         │
-│  └────────────────────────────────────────────────┘         │
+│  ┌────────────────────────────────────────────────┐          │
+│  │ 10 VMs × 2GB RAM = 20GB RAM                    │          │
+│  │ 10 VMs × 20GB Disk = 200GB Disk                │          │
+│  │ Boot time: 10 VMs × 2min = 20 minutes          │          │
+│  └────────────────────────────────────────────────┘          │
 │                                                              │
 │  Containers:                                                 │
-│  ┌────────────────────────────────────────────────┐         │
-│  │ 10 Containers × 100MB RAM = 1GB RAM            │         │
-│  │ 10 Containers × 100MB Disk = 1GB Disk          │         │
-│  │ Boot time: 10 Containers × 1s = 10 seconds     │         │
-│  └────────────────────────────────────────────────┘         │
+│  ┌────────────────────────────────────────────────┐          │
+│  │ 10 Containers × 100MB RAM = 1GB RAM            │          │
+│  │ 10 Containers × 100MB Disk = 1GB Disk          │          │
+│  │ Boot time: 10 Containers × 1s = 10 seconds     │          │
+│  └────────────────────────────────────────────────┘          │
 │                                                              │
-│  Savings: 95% RAM, 99.5% Disk, 99% faster startup          │
+│  Savings: 95% RAM, 99.5% Disk, 99% faster startup            │
 │                                                              │
 └──────────────────────────────────────────────────────────────┘
 ```
@@ -487,24 +487,24 @@ Container images are built in **layers**, where each layer represents a filesyst
 │  Dockerfile Instructions → Image Layers                     │
 │                                                             │
 │  FROM ubuntu:20.04                                          │
-│  └─► Layer 1: [Ubuntu base]         75 MB                  │
+│  └─► Layer 1: [Ubuntu base]         75 MB                   │
 │                                                             │
-│  RUN apt-get update && apt-get install -y python3          │
-│  └─► Layer 2: [Python installed]    +120 MB                │
+│  RUN apt-get update && apt-get install -y python3           │
+│  └─► Layer 2: [Python installed]    +120 MB                 │
 │                                                             │
 │  COPY app.py /app/                                          │
-│  └─► Layer 3: [App code]            +5 KB                  │
+│  └─► Layer 3: [App code]            +5 KB                   │
 │                                                             │
 │  RUN pip3 install flask                                     │
-│  └─► Layer 4: [Dependencies]        +50 MB                 │
+│  └─► Layer 4: [Dependencies]        +50 MB                  │
 │                                                             │
 │  CMD ["python3", "/app/app.py"]                             │
-│  └─► Layer 5: [Metadata]            +1 KB                  │
+│  └─► Layer 5: [Metadata]            +1 KB                   │
 │                                                             │
-│  Total Image Size: ~245 MB                                 │
+│  Total Image Size: ~245 MB                                  │
 │                                                             │
 │  When running:                                              │
-│  └─► Layer 6: [Container layer]     (Read-Write)           │
+│  └─► Layer 6: [Container layer]     (Read-Write)            │
 │       • Logs, temp files, runtime data                      │
 │                                                             │
 └─────────────────────────────────────────────────────────────┘
@@ -521,16 +521,16 @@ Multiple containers can share base layers:
 │                                                             │
 │  Container 1          Container 2          Container 3      │
 │  (nginx)              (apache)             (nginx-custom)   │
-│  ┌─────────────┐     ┌─────────────┐     ┌─────────────┐  │
-│  │ Nginx cfg   │     │ Apache cfg  │     │ Custom cfg  │  │
-│  ├─────────────┤     ├─────────────┤     ├─────────────┤  │
-│  │ Nginx binary│     │Apache binary│     │ Nginx binary│  │
-│  ├─────────────┤     ├─────────────┤     ├─────────────┤  │
-│  │   Ubuntu    │◄────┤   Ubuntu    │────►│   Ubuntu    │  │
-│  │  (shared)   │     │  (shared)   │     │  (shared)   │  │
-│  └─────────────┘     └─────────────┘     └─────────────┘  │
+│  ┌─────────────┐     ┌─────────────┐     ┌─────────────┐    │
+│  │ Nginx cfg   │     │ Apache cfg  │     │ Custom cfg  │    │
+│  ├─────────────┤     ├─────────────┤     ├─────────────┤    │
+│  │ Nginx binary│     │Apache binary│     │ Nginx binary│    │
+│  ├─────────────┤     ├─────────────┤     ├─────────────┤    │
+│  │   Ubuntu    │◄────┤   Ubuntu    │────►│   Ubuntu    │    │
+│  │  (shared)   │     │  (shared)   │     │  (shared)   │    │
+│  └─────────────┘     └─────────────┘     └─────────────┘    │
 │                                                             │
-│  3 containers, but Ubuntu base layer stored only once!     │
+│  3 containers, but Ubuntu base layer stored only once!      │
 │                                                             │
 └─────────────────────────────────────────────────────────────┘
 ```
@@ -550,21 +550,21 @@ When a container modifies a file from a read-only layer:
 ├─────────────────────────────────────────────────────────────┤
 │                                                             │
 │  Before Modification:                                       │
-│  ┌──────────────────────────────────────┐                  │
-│  │ Container Layer (R/W)  [empty]       │                  │
-│  ├──────────────────────────────────────┤                  │
-│  │ Image Layer (R/O)                    │                  │
-│  │ • /etc/nginx/nginx.conf (original)   │                  │
-│  └──────────────────────────────────────┘                  │
+│  ┌──────────────────────────────────────┐                   │
+│  │ Container Layer (R/W)  [empty]       │                   │
+│  ├──────────────────────────────────────┤                   │
+│  │ Image Layer (R/O)                    │                   │
+│  │ • /etc/nginx/nginx.conf (original)   │                   │
+│  └──────────────────────────────────────┘                   │
 │                                                             │
 │  After Modification:                                        │
-│  ┌──────────────────────────────────────┐                  │
-│  │ Container Layer (R/W)                │                  │
-│  │ • /etc/nginx/nginx.conf (modified) ◄─┐  Container sees │
-│  ├──────────────────────────────────────┤  │  this version │
-│  │ Image Layer (R/O)                    │  │               │
-│  │ • /etc/nginx/nginx.conf (original)   │──┘               │
-│  └──────────────────────────────────────┘                  │
+│  ┌──────────────────────────────────────┐                   │
+│  │ Container Layer (R/W)                │                   │
+│  │ • /etc/nginx/nginx.conf (modified) ◄─┐  Container sees   │
+│  ├──────────────────────────────────────┤  │  this version  │
+│  │ Image Layer (R/O)                    │  │                │
+│  │ • /etc/nginx/nginx.conf (original)   │──┘                │
+│  └──────────────────────────────────────┘                   │
 │                                                             │
 └─────────────────────────────────────────────────────────────┘
 ```
@@ -582,38 +582,38 @@ A **container runtime** is the software responsible for running containers. Ther
 │              Container Runtime Stack                        │
 ├─────────────────────────────────────────────────────────────┤
 │                                                             │
-│  ┌─────────────────────────────────────────────────────┐   │
-│  │  High-Level Runtime (User Interface)                │   │
-│  │  • Docker CLI, Podman, nerdctl                      │   │
-│  │  • Image management (build, pull, push)             │   │
-│  │  • Volume management                                │   │
-│  │  • Network management                               │   │
-│  └──────────────────────┬──────────────────────────────┘   │
+│  ┌─────────────────────────────────────────────────────┐    │
+│  │  High-Level Runtime (User Interface)                │    │
+│  │  • Docker CLI, Podman, nerdctl                      │    │
+│  │  • Image management (build, pull, push)             │    │
+│  │  • Volume management                                │    │
+│  │  • Network management                               │    │
+│  └──────────────────────┬──────────────────────────────┘    │
 │                         │                                   │
 │                         ▼                                   │
-│  ┌─────────────────────────────────────────────────────┐   │
-│  │  Container Runtime (Daemon/API)                     │   │
-│  │  • containerd, CRI-O                                │   │
-│  │  • Image unpacking                                  │   │
-│  │  • Container lifecycle management                   │   │
-│  │  • CRI implementation (for Kubernetes)              │   │
-│  └──────────────────────┬──────────────────────────────┘   │
+│  ┌─────────────────────────────────────────────────────┐    │
+│  │  Container Runtime (Daemon/API)                     │    │
+│  │  • containerd, CRI-O                                │    │
+│  │  • Image unpacking                                  │    │
+│  │  • Container lifecycle management                   │    │
+│  │  • CRI implementation (for Kubernetes)              │    │
+│  └──────────────────────┬──────────────────────────────┘    │
 │                         │                                   │
 │                         ▼                                   │
-│  ┌─────────────────────────────────────────────────────┐   │
-│  │  Low-Level Runtime (OCI Runtime)                    │   │
-│  │  • runc, crun, kata-runtime                         │   │
-│  │  • Creates namespaces                               │   │
-│  │  • Configures cgroups                               │   │
-│  │  • Runs container process                           │   │
-│  └─────────────────────────────────────────────────────┘   │
+│  ┌─────────────────────────────────────────────────────┐    │
+│  │  Low-Level Runtime (OCI Runtime)                    │    │
+│  │  • runc, crun, kata-runtime                         │    │
+│  │  • Creates namespaces                               │    │
+│  │  • Configures cgroups                               │    │
+│  │  • Runs container process                           │    │
+│  └─────────────────────────────────────────────────────┘    │
 │                         │                                   │
 │                         ▼                                   │
-│  ┌─────────────────────────────────────────────────────┐   │
-│  │  Linux Kernel                                        │   │
-│  │  • Namespaces, cgroups, capabilities                │   │
-│  │  • Process scheduling, memory management            │   │
-│  └─────────────────────────────────────────────────────┘   │
+│  ┌─────────────────────────────────────────────────────┐    │
+│  │  Linux Kernel                                       │    │
+│  │  • Namespaces, cgroups, capabilities                │    │
+│  │  • Process scheduling, memory management            │    │
+│  └─────────────────────────────────────────────────────┘    │
 │                                                             │
 └─────────────────────────────────────────────────────────────┘
 ```
@@ -650,10 +650,10 @@ A **container runtime** is the software responsible for running containers. Ther
 │         │ CRI (gRPC)                                        │
 │         ├────────────────┬────────────────┐                 │
 │         ▼                ▼                ▼                 │
-│  ┌────────────┐   ┌──────────┐    ┌──────────┐            │
-│  │containerd  │   │  CRI-O   │    │  Docker  │            │
-│  │    +CRI    │   │          │    │ (deprecated)           │
-│  └──────┬─────┘   └─────┬────┘    └─────┬────┘            │
+│  ┌────────────┐   ┌──────────┐    ┌──────────┐              │
+│  │containerd  │   │  CRI-O   │    │  Docker  │              │
+│  │    +CRI    │   │          │    │ (deprecated)            │
+│  └──────┬─────┘   └─────┬────┘    └─────┬────┘              │
 │         │               │               │                   │
 │         └───────────────┼───────────────┘                   │
 │                         ▼                                   │
@@ -684,25 +684,25 @@ A **container runtime** is the software responsible for running containers. Ther
 │           │  Image (on disk)     │                          │
 │           └──────────┬───────────┘                          │
 │                      │ create                               │
-│                      ▼                                       │
+│                      ▼                                      │
 │           ┌──────────────────────┐                          │
 │           │      Created         │                          │
 │           │  (not running yet)   │                          │
 │           └──────────┬───────────┘                          │
 │                      │ start                                │
-│                      ▼                                       │
-│           ┌──────────────────────┐                          │
-│      ┌───│      Running         │───┐                      │
-│      │   │  (process executing) │   │                      │
-│      │   └──────────────────────┘   │                      │
-│      │                              │                      │
-│   pause│                             │stop                  │
-│      │                              │                      │
-│      ▼                              ▼                      │
-│  ┌──────────┐              ┌─────────────┐                 │
-│  │ Paused   │              │   Stopped   │                 │
-│  │(frozen)  │              │  (exited)   │                 │
-│  └────┬─────┘              └──────┬──────┘                 │
+│                      ▼                                      │
+│          ┌──────────────────────┐                           │
+│      ┌───│      Running         │───┐                       │
+│      │   │  (process executing) │   │                       │
+│      │   └──────────────────────┘   │                       │
+│      │                              │                       │
+│    pause                           stop                     │
+│      │                              │                       │
+│      ▼                              ▼                       │
+│  ┌──────────┐              ┌─────────────┐                  │
+│  │ Paused   │              │   Stopped   │                  │
+│  │(frozen)  │              │  (exited)   │                  │
+│  └────┬─────┘              └──────┬──────┘                  │
 │       │                           │                         │
 │   unpause                       restart                     │
 │       │                           │                         │
@@ -821,29 +821,29 @@ $ kubectl scale deployment web --replicas=100
 ├─────────────────────────────────────────────────────────────┤
 │                                                             │
 │  1. Image Security                                          │
-│  ├─ Use official/verified images                           │
-│  ├─ Scan for vulnerabilities (Trivy, Clair)                │
-│  ├─ Keep images updated                                    │
-│  └─ Sign images (Docker Content Trust)                     │
+│  ├─ Use official/verified images                            │
+│  ├─ Scan for vulnerabilities (Trivy, Clair)                 │
+│  ├─ Keep images updated                                     │
+│  └─ Sign images (Docker Content Trust)                      │
 │                                                             │
 │  2. Runtime Security                                        │
-│  ├─ Run as non-root user                                   │
-│  ├─ Drop capabilities (--cap-drop=ALL)                     │
-│  ├─ Read-only filesystem (--read-only)                     │
-│  ├─ Resource limits (--memory, --cpus)                     │
-│  └─ Use security profiles (AppArmor, SELinux, Seccomp)     │
+│  ├─ Run as non-root user                                    │
+│  ├─ Drop capabilities (--cap-drop=ALL)                      │
+│  ├─ Read-only filesystem (--read-only)                      │
+│  ├─ Resource limits (--memory, --cpus)                      │
+│  └─ Use security profiles (AppArmor, SELinux, Seccomp)      │
 │                                                             │
 │  3. Network Security                                        │
-│  ├─ Minimize exposed ports                                 │
-│  ├─ Use private networks                                   │
-│  ├─ Implement network policies                             │
-│  └─ TLS for inter-container communication                  │
+│  ├─ Minimize exposed ports                                  │
+│  ├─ Use private networks                                    │
+│  ├─ Implement network policies                              │
+│  └─ TLS for inter-container communication                   │
 │                                                             │
 │  4. Host Security                                           │
-│  ├─ Keep kernel updated                                    │
-│  ├─ Harden host OS                                         │
-│  ├─ Monitor container activity                             │
-│  └─ Use minimal host OS (CoreOS, Flatcar)                  │
+│  ├─ Keep kernel updated                                     │
+│  ├─ Harden host OS                                          │
+│  ├─ Monitor container activity                              │
+│  └─ Use minimal host OS (CoreOS, Flatcar)                   │
 │                                                             │
 └─────────────────────────────────────────────────────────────┘
 ```
