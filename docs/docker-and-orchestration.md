@@ -317,6 +317,7 @@ Local Development → Container Image → Registry → Orchestration → Product
 - [Container Runtime Interface (CRI)](container-runtime.md)
 - [Understanding Containers](containers.md)
 - [What is Kubernetes?](what-is-kubernetes.md)
+- [Docker Complete Practical Guide](docker.md) - Hands-on Docker commands and examples
 
 ---
 
