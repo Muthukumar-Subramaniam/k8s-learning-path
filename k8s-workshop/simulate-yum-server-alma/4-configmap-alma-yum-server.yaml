@@ -1,0 +1,47 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: alma-yum-server
+data:
+  alma-yum-server.conf: |
+    server {
+        listen       80;
+        server_name  alma-yum-server.lab.local;
+
+        location = / {
+            default_type text/html;
+            return 200 '<html>
+            <head><title>AlmaLinux YUM Repository</title></head>
+            <body>
+            <h1>AlmaLinux YUM Repository</h1>
+            <ul>
+              <li><a href="/9/">AlmaLinux 9 (Previous)</a></li>
+              <li><a href="/10/">AlmaLinux 10 (Latest)</a></li>
+            </ul>
+            </body>
+            </html>\n';
+        }
+
+        location = /9 {
+            return 301 /9/;
+        }
+
+        location = /10 {
+            return 301 /10/;
+        }
+
+        location /9/ {
+            alias /usr/share/nginx/html/9/;
+            autoindex on;
+        }
+
+        location /10/ {
+            alias /usr/share/nginx/html/10/;
+            autoindex on;
+        }
+
+        error_page   500 502 503 504  /50x.html;
+        location = /50x.html {
+            root   /usr/share/nginx/html;
+        }
+    }

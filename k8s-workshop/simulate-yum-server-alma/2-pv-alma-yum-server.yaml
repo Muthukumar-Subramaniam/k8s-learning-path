@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: pv-alma-yum-server
+spec:
+  capacity:
+    storage: 1Mi
+  accessModes:
+    - ReadOnlyMany
+  storageClassName: lab-infra-nfs
+  csi:
+    driver: nfs.csi.k8s.io
+    volumeHandle: alma-yum-server-nfs
+    volumeAttributes:
+      server: tuxops360.lab.local
+      share: /tuxops360.lab.local

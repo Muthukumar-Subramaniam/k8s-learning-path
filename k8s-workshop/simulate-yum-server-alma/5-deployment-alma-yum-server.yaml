@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: alma-yum-server
+  labels:
+    app: alma-yum-server
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: alma-yum-server
+  template:
+    metadata:
+      labels:
+        app: alma-yum-server
+    spec:
+      terminationGracePeriodSeconds: 1
+      volumes:
+      - name: nginx-config-volume
+        configMap:
+          name: alma-yum-server
+          defaultMode: 0644
+      - name: nfs-volume
+        persistentVolumeClaim:
+          claimName: pvc-alma-yum-server
+          readOnly: true
+      containers:
+      - name: nginx
+        image: nginx:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 80
+        volumeMounts:
+        - mountPath: /usr/share/nginx/html/9
+          name: nfs-volume
+          subPath: almalinux-previous
+          readOnly: true
+        - mountPath: /usr/share/nginx/html/10
+          name: nfs-volume
+          subPath: almalinux-latest
+          readOnly: true
+        - mountPath: /etc/nginx/conf.d/alma-yum-server.conf
+          subPath: alma-yum-server.conf
+          name: nginx-config-volume
