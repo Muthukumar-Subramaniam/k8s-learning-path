@@ -7,7 +7,7 @@ data:
   nginx-custom.conf: |
     server {
         listen       80;
-        server_name  k8s-app-nginx k8s-app-nginx.lab.local;
+        server_name  k8s-app-nginx k8s-app-nginx.__DOMAIN__;
         location / {
             root   /usr/share/nginx/html;
             autoindex on;
@@ -74,5 +74,5 @@ spec:
       port: 80
       targetPort: 80
   type: LoadBalancer
-  loadBalancerIP: 10.10.20.201
+  loadBalancerIP: 10.28.31.101
 ---

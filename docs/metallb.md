@@ -80,7 +80,7 @@ In cloud environments (AWS, GCP, Azure), LoadBalancer services automatically pro
 │                            │                                      │
 │                  ┌─────────▼─────────┐                            │
 │                  │  External IP      │                            │
-│                  │  (e.g., 10.10.20.201)                          │
+│                  │  (e.g., 10.28.31.101)                          │
 │                  └─────────┬─────────┘                            │
 │                            │                                      │
 │          ┌─────────────────┴─────────────────┐                   │
@@ -113,7 +113,7 @@ Layer 2 mode uses standard network protocols (ARP for IPv4, NDP for IPv6) to ann
 ┌─────────────────────────────────────────────────────────────┐
 │                    Layer 2 Mode Operation                    │
 │                                                              │
-│  Client: "Who has 10.10.20.201?"                            │
+│  Client: "Who has 10.28.31.101?"                            │
 │            │                                                 │
 │            │  ARP Request (broadcast)                       │
 │            ▼                                                 │
@@ -168,7 +168,7 @@ metadata:
   namespace: metallb-system
 spec:
   addresses:
-  - 10.10.20.200-10.10.20.220
+  - 10.28.31.101-10.28.31.155
 ---
 apiVersion: metallb.io/v1beta1
 kind: L2Advertisement
@@ -209,7 +209,7 @@ Layer 3 mode uses [BGP (Border Gateway Protocol)](bgp.md) to announce external I
 │         │  k8s-w1        │  │  k8s-w2      │                   │
 │         │  AS: 64500     │  │  AS: 64500   │                   │
 │         │  Advertises:   │  │  Advertises: │                   │
-│         │  10.10.20.201  │  │  10.10.20.201│                   │
+│         │  10.28.31.101  │  │  10.28.31.101│                   │
 │         └────────────────┘  └──────────────┘                   │
 │                                                                 │
 │  Router sees BOTH paths → Distributes traffic via ECMP         │
@@ -248,7 +248,7 @@ When multiple nodes advertise the same IP:
 |------|-------------|---------|
 | **AS Number** | Autonomous System identifier | 64500 (private range: 64512-65534) |
 | **BGP Peer** | Router relationship | MetalLB ↔ pfSense |
-| **Route Advertisement** | Announcing IP prefixes | "I have 10.10.20.201/32" |
+| **Route Advertisement** | Announcing IP prefixes | "I have 10.28.31.101/32" |
 | **ECMP** | Load balancing mechanism | 3 paths → 33% each |
 
 ### Configuration Example
@@ -261,7 +261,7 @@ metadata:
   namespace: metallb-system
 spec:
   addresses:
-  - 10.10.20.200-10.10.20.220
+  - 10.28.31.101-10.28.31.155
 ---
 apiVersion: metallb.io/v1beta2
 kind: BGPPeer
@@ -271,7 +271,7 @@ metadata:
 spec:
   myASN: 64500              # MetalLB's AS number
   peerASN: 64501            # Router's AS number
-  peerAddress: 10.10.20.1   # Router IP
+  peerAddress: 10.28.28.1   # Router IP
 ---
 apiVersion: metallb.io/v1beta1
 kind: BGPAdvertisement
@@ -300,16 +300,16 @@ spec:
    ```
    Services → FRR → BGP
    - Local AS: 64501
-   - Router ID: 10.10.20.1
+   - Router ID: 10.28.28.1
    ```
 
 4. **Add Neighbors** (one per worker node):
    ```
-   Neighbor: 10.10.20.4 (k8s-w1)
+   Neighbor: 10.28.28.4 (k8s-w1)
    Remote AS: 64500
    Description: k8s-w1
    
-   Neighbor: 10.10.20.5 (k8s-w2)
+   Neighbor: 10.28.28.5 (k8s-w2)
    Remote AS: 64500
    Description: k8s-w2
    ```
@@ -351,7 +351,7 @@ spec:
 
 **Layer 2**:
 ```
-10.10.20.201 → k8s-w2 (1000 req/sec)
+10.28.31.101 → k8s-w2 (1000 req/sec)
                 ├─ Pod A: 500 req/sec
                 └─ Pod B: 500 req/sec
 
@@ -363,7 +363,7 @@ Bottleneck: k8s-w2 network interface
 
 **Layer 3 with ECMP**:
 ```
-10.10.20.201 → Router distributes:
+10.28.31.101 → Router distributes:
     ├─ k8s-w1 (333 req/sec) → Pod A: 333 req/sec
     ├─ k8s-w2 (333 req/sec) → Pod B: 333 req/sec
     └─ k8s-w3 (334 req/sec) → Pod C: 334 req/sec
@@ -386,7 +386,7 @@ metadata:
   namespace: metallb-system
 spec:
   addresses:
-  - 10.10.20.200-10.10.20.220
+  - 10.28.31.101-10.28.31.155
 ---
 apiVersion: metallb.io/v1beta1
 kind: L2Advertisement
@@ -408,7 +408,7 @@ metadata:
   namespace: metallb-system
 spec:
   addresses:
-  - 10.10.20.200-10.10.20.210
+  - 10.28.31.101-10.28.31.130
 ---
 apiVersion: metallb.io/v1beta1
 kind: IPAddressPool
@@ -417,7 +417,7 @@ metadata:
   namespace: metallb-system
 spec:
   addresses:
-  - 10.10.20.211-10.10.20.220
+  - 10.28.31.131-10.28.31.155
 ---
 apiVersion: metallb.io/v1beta1
 kind: L2Advertisement
@@ -455,7 +455,7 @@ metadata:
 spec:
   myASN: 64500
   peerASN: 64501
-  peerAddress: 10.10.20.1
+  peerAddress: 10.28.28.1
   nodeSelectors:
   - matchLabels:
       kubernetes.io/hostname: k8s-w1
@@ -506,7 +506,7 @@ kubectl get bgpadvertisements -n metallb-system
 ip neigh | grep <external-ip>
 
 # Should show MAC address of the leader node
-# 10.10.20.201 dev eth0 lladdr 52:54:00:xx:xx:xx REACHABLE
+# 10.28.31.101 dev eth0 lladdr 52:54:00:xx:xx:xx REACHABLE
 ```
 
 ### Layer 3: Check BGP

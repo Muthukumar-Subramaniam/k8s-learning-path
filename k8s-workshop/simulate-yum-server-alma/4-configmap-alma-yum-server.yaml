@@ -6,7 +6,7 @@ data:
   alma-yum-server.conf: |
     server {
         listen       80;
-        server_name  alma-yum-server.lab.local;
+        server_name  alma-yum-server.__DOMAIN__;
 
         location = / {
             default_type text/html;

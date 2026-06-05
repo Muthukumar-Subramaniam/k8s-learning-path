@@ -5,7 +5,7 @@ metadata:
 spec:
   ingressClassName: nginx    # 👈 Must match the IngressClass name
   rules:
-  - host: web-app-nginx.lab.local
+  - host: web-app-nginx.__DOMAIN__
     http:
       paths:
       - path: /

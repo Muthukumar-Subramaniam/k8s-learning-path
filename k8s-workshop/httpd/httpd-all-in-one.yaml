@@ -6,7 +6,7 @@ metadata:
 data:
   my-apache-nfs-custom.conf: |
     <VirtualHost *:80>
-      ServerName k8s-app-apache-nfs.lab.local
+      ServerName k8s-app-apache-nfs.__DOMAIN__
       ServerAlias k8s-app-apache-nfs
       DocumentRoot "/usr/local/apache2/htdocs"
       <Directory "/usr/local/apache2/htdocs">
@@ -82,5 +82,5 @@ spec:
       port: 80
       targetPort: 80
   type: LoadBalancer
-  loadBalancerIP: 10.10.20.203
+  loadBalancerIP: 10.28.31.103
 ---

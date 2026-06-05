@@ -12,5 +12,5 @@ spec:
     driver: nfs.csi.k8s.io
     volumeHandle: alma-yum-server-nfs
     volumeAttributes:
-      server: tuxops360.lab.local
-      share: /tuxops360.lab.local
+      server: __NFS_SERVER__
+      share: /tux2lab-data

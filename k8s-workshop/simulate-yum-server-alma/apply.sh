@@ -1,5 +1,6 @@
 #!/bin/bash
 set -euo pipefail
+cd "$(dirname "$0")"
 
 if [ -z "${1:-}" ]; then
     read -rp "Enter the domain name (e.g., user.internal): " domain
@@ -8,5 +9,6 @@ else
 fi
 nfs_server="tux2lab-engine.${domain}"
 
-sed "s/__DOMAIN__/${domain}/g; s/__NFS_SERVER__/${nfs_server}/g" nfs-pv-web-share.yaml | kubectl apply -f -
-kubectl apply -f nfs-pvc-web-share.yaml
+for manifest in [0-9]-*.yaml; do
+    sed "s/__DOMAIN__/${domain}/g; s/__NFS_SERVER__/${nfs_server}/g" "${manifest}" | kubectl apply -f -
+done

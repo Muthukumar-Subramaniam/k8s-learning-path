@@ -1,6 +1,10 @@
 #!/bin/bash
-my_domain_name=${dnsbinder_domain}
-for v_k8s_host in k8s-{w{1,2,3},cp{1,2,3}}.${dnsbinder_domain}
+if [ -z "${1}" ]; then
+    read -rp "Enter the domain name (e.g., user.internal): " my_domain_name
+else
+    my_domain_name="${1}"
+fi
+for v_k8s_host in k8s-{w{1,2,3},cp{1,2,3}}.${my_domain_name}
 do
 	if ! nc -vzw1 ${v_k8s_host} 22 &>/dev/null
 	then

@@ -5,7 +5,7 @@ This document provides a real-world example of Calico networking on a Kubernetes
 ## Environment Details
 
 - **Node**: k8s-cp1 (Control Plane)
-- **Node IP**: 10.10.20.3/22
+- **Node IP**: 10.28.28.3/22
 - **Calico Version**: Running with IPIP mode
 - **Kubernetes Version**: v1.35.0
 - **Operating System**: AlmaLinux 10.1 (Heliotrope Lion)
@@ -13,7 +13,7 @@ This document provides a real-world example of Calico networking on a Kubernetes
 ## Network Configuration
 
 ```
-Node Network:    10.10.20.0/22
+Node Network:    10.28.28.0/22
 Pod Network:     10.8.0.0/16
 Service Network: 10.96.0.0/12
 ```
@@ -33,7 +33,7 @@ Service Network: 10.96.0.0/12
     link/ether 00:50:56:b6:ad:70 brd ff:ff:ff:ff:ff:ff
     altname enp2s0
     altname ens160
-    inet 10.10.20.3/22 brd 10.10.23.255 scope global noprefixroute eth0
+    inet 10.28.28.3/22 brd 10.28.31.255 scope global noprefixroute eth0
        valid_lft forever preferred_lft forever
     inet6 fe80::250:56ff:feb6:ad70/64 scope link proto kernel_ll
        valid_lft forever preferred_lft forever
@@ -68,7 +68,7 @@ Service Network: 10.96.0.0/12
 
 #### 2. **eth0 (Physical Network Interface)**
 - Primary network interface connected to the node network
-- Address: 10.10.20.3/22
+- Address: 10.28.28.3/22
 - This is the interface used for:
   - Node-to-node communication
   - External cluster access
@@ -107,13 +107,13 @@ Host Network Namespace          Pod Network Namespace
 [root@k8s-cp1 ~]# route -n
 Kernel IP routing table
 Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
-0.0.0.0         10.10.20.1      0.0.0.0         UG    100    0        0 eth0
-10.8.94.64      10.10.20.5      255.255.255.192 UGH   0      0        0 tunl0
+0.0.0.0         10.28.28.1      0.0.0.0         UG    100    0        0 eth0
+10.8.94.64      10.28.28.5      255.255.255.192 UGH   0      0        0 tunl0
 10.8.170.65     0.0.0.0         255.255.255.255 UH    0      0        0 calif86b4c07487
 10.8.170.66     0.0.0.0         255.255.255.255 UH    0      0        0 cali51a8a41be5f
 10.8.170.67     0.0.0.0         255.255.255.255 UH    0      0        0 cali1a7063df1d7
-10.8.247.192    10.10.20.4      255.255.255.192 UGH   0      0        0 tunl0
-10.10.20.0      0.0.0.0         255.255.252.0   U     100    0        0 eth0
+10.8.247.192    10.28.28.4      255.255.255.192 UGH   0      0        0 tunl0
+10.28.28.0      0.0.0.0         255.255.252.0   U     100    0        0 eth0
 ```
 
 ### Route Breakdown
@@ -121,7 +121,7 @@ Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
 #### 1. **Default Route**
 ```
 Destination: 0.0.0.0/0
-Gateway: 10.10.20.1
+Gateway: 10.28.28.1
 Interface: eth0
 ```
 - All traffic not matching other routes goes to the default gateway
@@ -132,20 +132,20 @@ Interface: eth0
 **Worker-2 Pod Network:**
 ```
 Destination: 10.8.94.64/26
-Gateway: 10.10.20.5 (k8s-w2 node IP)
+Gateway: 10.28.28.5 (k8s-w2 node IP)
 Interface: tunl0
 ```
 - Routes traffic to Pods on Worker-2
-- Traffic is encapsulated via IPIP tunnel to node 10.10.20.5
+- Traffic is encapsulated via IPIP tunnel to node 10.28.28.5
 
 **Worker-1 Pod Network:**
 ```
 Destination: 10.8.247.192/26
-Gateway: 10.10.20.4 (k8s-w1 node IP)
+Gateway: 10.28.28.4 (k8s-w1 node IP)
 Interface: tunl0
 ```
 - Routes traffic to Pods on Worker-1
-- Traffic is encapsulated via IPIP tunnel to node 10.10.20.4
+- Traffic is encapsulated via IPIP tunnel to node 10.28.28.4
 
 #### 3. **Local Pod Routes (direct veth pairs)**
 ```
@@ -158,7 +158,7 @@ Interface: tunl0
 
 #### 4. **Node Network Route**
 ```
-Destination: 10.10.20.0/22
+Destination: 10.28.28.0/22
 Interface: eth0
 ```
 - Local network route for node-to-node communication
@@ -214,7 +214,7 @@ Flow:
 │  ┌─────────────────┐             │           │              ┌─────────────┐   │
 │  │ Routing Table   │             │           │              │   tunl0     │   │
 │  │ 10.8.247.192/26 │             │  Physical │              │             │   │
-│  │ via 10.10.20.4  │             │  Network  │              │             │   │
+│  │ via 10.28.28.4  │             │  Network  │              │             │   │
 │  └────────┬────────┘             │           │              └─────────────┘   │
 │           │                      │           │                                │
 │           ▼                      │           │                                │
@@ -226,8 +226,8 @@ Flow:
 │           ▼                      │           │                                │
 │  ┌─────────────────┐             │           │              ┌─────────────┐   │
 │  │      eth0       │             │ Outer IP: │              │    eth0     │   │
-│  │  10.10.20.3     ├─────────────┼─Src:10.10.20.3──────────►│ 10.10.20.4  │   │
-│  │                 │             │ Dst:10.10.20.4           │             │   │
+│  │  10.28.28.3     ├─────────────┼─Src:10.28.28.3──────────►│ 10.28.28.4  │   │
+│  │                 │             │ Dst:10.28.28.4           │             │   │
 │  └─────────────────┘             │ Inner IP:                └─────────────┘   │
 │                                  │  Src:10.8.170.65                           │
 │                                  │  Dst:10.8.247.196                          │
@@ -236,9 +236,9 @@ Flow:
 Flow:
 1. Pod A sends packet: Src=10.8.170.65, Dst=10.8.247.196
 2. Exits Pod A via calif86b4c07487
-3. Host routing table matches 10.8.247.192/26 → via 10.10.20.4 (tunl0)
+3. Host routing table matches 10.8.247.192/26 → via 10.28.28.4 (tunl0)
 4. Packet is encapsulated with IPIP:
-   - Outer IP header: Src=10.10.20.3, Dst=10.10.20.4
+   - Outer IP header: Src=10.28.28.3, Dst=10.28.28.4
    - Inner IP header: Src=10.8.170.65, Dst=10.8.247.196
 5. Encapsulated packet sent via eth0 to Worker-1 node
 6. Worker-1's tunl0 decapsulates packet

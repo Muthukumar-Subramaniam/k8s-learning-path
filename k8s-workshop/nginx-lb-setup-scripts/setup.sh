@@ -1,11 +1,12 @@
 #!/bin/bash
 
-# Get DNS domain from hostname
-if [ -z "$dnsbinder_domain" ]; then
-    dnsbinder_domain=$(hostname -d)
+# Get DNS domain from argument or prompt
+if [ -n "$1" ]; then
+    dnsbinder_domain="$1"
+elif [ -z "$dnsbinder_domain" ]; then
+    read -rp "Enter the domain name (e.g., user.internal): " dnsbinder_domain
     if [ -z "$dnsbinder_domain" ]; then
-        echo "Error: Could not determine DNS domain from hostname."
-        echo "Please set dnsbinder_domain environment variable or configure FQDN hostname."
+        echo "Error: Domain name cannot be empty."
         exit 1
     fi
 fi

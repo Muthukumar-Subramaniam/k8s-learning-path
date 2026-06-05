@@ -117,4 +117,4 @@ spec:
       port: 22
       targetPort: 22
   type: LoadBalancer
-  loadBalancerIP: 10.10.20.204
+  loadBalancerIP: 10.28.31.104

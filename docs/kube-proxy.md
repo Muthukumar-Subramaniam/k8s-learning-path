@@ -519,7 +519,7 @@ External Client
     ↓
 Cloud Load Balancer (34.123.45.67:80)
     ↓
-Routes to Node:NodePort (e.g., 10.10.20.4:31234)
+Routes to Node:NodePort (e.g., 10.28.28.4:31234)
     ↓
 kube-proxy rules on node
     ↓

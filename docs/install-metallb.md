@@ -23,7 +23,7 @@ spec:
 # Reserve IP Range for MetalLB LoadBalancer from your Cluster MGMT Network
 # ( Note : This is not your pod_network_cidr )
 # You need to change the below as per your MGMT Network
-  - 10.10.20.201-10.10.20.255
+  - 10.28.31.101-10.28.31.155
 
 ---
 apiVersion: metallb.io/v1beta1

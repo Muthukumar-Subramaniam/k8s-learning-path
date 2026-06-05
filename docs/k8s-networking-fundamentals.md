@@ -39,7 +39,7 @@ Kubernetes networking is built on these core requirements:
 └────────────────────────────────────────────────────────────────────────────────┘
 
 ┌────────────────────────────────────────────────────────────────────────────────┐
-│             k8s-cp1.lab.local - CONTROL PLANE NODE (10.10.20.3)                │
+│             k8s-cp1.tux2lab.internal - CONTROL PLANE NODE (10.28.28.3)                │
 │                                                                                │
 │  ┌───────────────┐  ┌──────────────┐  ┌────────────────┐  ┌────────────────┐   │
 │  │ kube-apiserver│  │     etcd     │  │ kube-scheduler │  │ kube-controller│   │
@@ -57,7 +57,7 @@ Kubernetes networking is built on these core requirements:
                                                                    │
                                                                    │
 ┌───────────────────────────────────────────────────────────────── ┼─────────────┐
-│        k8s-w1.lab.local - WORKER NODE (10.10.20.4)               │             │
+│        k8s-w1.tux2lab.internal - WORKER NODE (10.28.28.4)               │             │
 │                                                                  │             │
 │  ┌─────────────────── ───────────────────────────────────────────┼──────┐      │
 │  │     kubelet                                                   │      │      │
@@ -96,21 +96,21 @@ Kubernetes networking is built on these core requirements:
 │  │  Container Runtime (containerd / CRI-O)           │                         │
 │  └───────────────────────────────────────────────────┘                         │
 │                                                                                │
-│  Physical NIC: eth0 (10.10.20.4)                                               │
+│  Physical NIC: eth0 (10.28.28.4)                                               │
 └────────────────────────────────────────────────────────────────────────────────┘
 
 ┌────────────────────────────────────────────────────────────────────────────────┐
-│            k8s-w2.lab.local - WORKER NODE (10.10.20.5)                         │
+│            k8s-w2.tux2lab.internal - WORKER NODE (10.28.28.5)                         │
 │                                                                                │
 │  Similar structure: kubelet, kube-proxy, CNI Plugin, Container Runtime         │
 │  Pod IPs allocated from cluster Pod network range                              │
-│  Physical NIC: eth0 (10.10.20.5)                                               │
+│  Physical NIC: eth0 (10.28.28.5)                                               │
 └────────────────────────────────────────────────────────────────────────────────┘
 
 ┌────────────────────────────────────────────────────────────────────────────────┐
 │                              NETWORK LAYERS                                    │
 │                                                                                │
-│  📦 Node Network (10.10.20.0/22)                                               │
+│  📦 Node Network (10.28.28.0/22)                                               │
 │     Physical/VM network for node-to-node communication                         │
 │                                                                                │
 │  🌐 Pod Network (10.8.0.0/16)                                                  │
@@ -150,12 +150,12 @@ The **Node Network** is the physical or VM network where Kubernetes nodes reside
 ```
 ┌───────────────────────────────────────────────────────────┐
 │                    Node Network (Underlay)                │
-│                    Example: 10.10.20.0/22                 │
+│                    Example: 10.28.28.0/22                 │
 │                    (Your cluster configuration)           │
 │                                                           │
 │   ┌──────────────┐  ┌──────────────┐  ┌──────────────┐    │
 │   │ Control Node │  │  Worker-1    │  │  Worker-2    │    │
-│   │ 10.10.20.3   │  │ 10.10.20.4   │  │ 10.10.20.5   │    │
+│   │ 10.28.28.3   │  │ 10.28.28.4   │  │ 10.28.28.5   │    │
 │   └──────────────┘  └──────────────┘  └──────────────┘    │
 │                                                           │
 │   • Physical/VM network interfaces                        │
@@ -166,10 +166,10 @@ The **Node Network** is the physical or VM network where Kubernetes nodes reside
 
 **Characteristics**:
 - **Purpose**: Node-to-node communication, external access
-- **CIDR Example**: `10.10.20.0/22`
-  - Control plane: 10.10.20.3
-  - Worker 1: 10.10.20.4
-  - Worker 2: 10.10.20.5
+- **CIDR Example**: `10.28.28.0/22`
+  - Control plane: 10.28.28.3
+  - Worker 1: 10.28.28.4
+  - Worker 2: 10.28.28.5
 - **Assignment**: By infrastructure (DHCP, static, cloud provider)
 - **Visibility**: Routable within your data center/VPC
 - **Used For**: 
@@ -364,11 +364,11 @@ Here's how all three networks interact:
 │         │ (1) Access via NodePort/LoadBalancer         │
 │         ▼                                              │
 │  ┌────────────────────────────────────────────────┐    │
-│  │  Node Network: 10.10.20.0/22                   │    │
+│  │  Node Network: 10.28.28.0/22                   │    │
 │  │                                                │    │
 │  │  ┌────────────┐         ┌─────────────┐        │    │
 │  │  │  Worker-1  │         │  Worker-2   │        │    │
-│  │  │10.10.20.4  │         │10.10.20.5   │        │    │
+│  │  │10.28.28.4  │         │10.28.28.5   │        │    │
 │  │  └─────┬──────┘         └──────┬──────┘        │    │
 │  └────────┼───────────────────────┼───────────────┘    │
 │           │                       │                    │
@@ -400,7 +400,7 @@ Here's how all three networks interact:
 └────────────────────────────────────────────────────────┘
 
 Traffic Flow Example:
-1. Client accesses: http://10.10.20.4:30080 (NodePort on Worker-1)
+1. Client accesses: http://10.28.28.4:30080 (NodePort on Worker-1)
 2. kube-proxy on node routes to Service ClusterIP 10.96.10.50:80
 3. Service load-balances to Pod IPs: 10.8.0.5:80 or 10.8.1.10:80
 4. Pod receives and processes request
@@ -411,7 +411,7 @@ Traffic Flow Example:
 
 | Network Type | Example CIDR | Purpose | Routable | Configured By |
 |--------------|--------------|---------|----------|---------------|
-| **Node Network** | `10.10.20.0/22` | Physical node connectivity | Yes (within infra) | Infrastructure/Cloud |
+| **Node Network** | `10.28.28.0/22` | Physical node connectivity | Yes (within infra) | Infrastructure/Cloud |
 | **Pod Network** | `10.8.0.0/16` | Pod-to-Pod communication | No (cluster internal) | CNI Plugin |
 | **Service Network** | `10.96.0.0/12` | Service virtual IPs | No (virtual only) | Kubernetes API |
 
@@ -425,7 +425,7 @@ Pod Network:     10.8.0.0/16    # Overlaps!
 Service Network: 10.96.0.0/12   # OK
 
 # ✅ GOOD - Non-overlapping ranges (Example Configuration)
-Node Network:    10.10.20.0/22
+Node Network:    10.28.28.0/22
 Pod Network:     10.8.0.0/16
 Service Network: 10.96.0.0/12
 ```
@@ -464,10 +464,10 @@ kubectl get services --all-namespaces
 
 ```yaml
 # Cluster Configuration
-Node Network:    10.10.20.0/22
-  - Control Plane: 10.10.20.3
-  - Worker 1:      10.10.20.4
-  - Worker 2:      10.10.20.5
+Node Network:    10.28.28.0/22
+  - Control Plane: 10.28.28.3
+  - Worker 1:      10.28.28.4
+  - Worker 2:      10.28.28.5
 
 Pod Network:     10.8.0.0/16
   - Worker 1 CIDR: 10.8.0.0/24
@@ -546,7 +546,7 @@ Pods on the same node communicate through a virtual bridge and veth pairs.
 ```
 ┌──────────────────────────────────────────────────┐
 │                        Node 1                    │
-│                     10.10.20.4                   │
+│                     10.28.28.4                   │
 │                                                  │
 │  ┌─────────────┐              ┌─────────────┐    │
 │  │   Pod A     │              │   Pod B     │    │
@@ -597,7 +597,7 @@ Pods on different nodes communicate through the CNI network implementation.
 │                                                                   │
 │  ┌──────────────────────────┐      ┌──────────────────────────┐   │
 │  │       Node 1             │      │       Node 2             │   │
-│  │    10.10.20.4            │      │    10.10.20.5            │   │
+│  │    10.28.28.4            │      │    10.28.28.5            │   │
 │  │    Pod CIDR: 10.8.0.0/24 │      │    Pod CIDR: 10.8.1.0/24 │   │
 │  │                          │      │                          │   │
 │  │  ┌─────────────┐         │      │  ┌─────────────┐         │   │
@@ -651,7 +651,7 @@ traceroute 10.8.1.8
 # Check routing table on node
 ip route show
 # Output might show:
-# 10.8.1.0/24 via 10.10.20.5 dev eth0
+# 10.8.1.0/24 via 10.28.28.5 dev eth0
 ```
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[↑ Back to Table of Contents](#-table-of-contents)
@@ -744,9 +744,9 @@ Exposes service on each node's IP at a static port.
 │                                                           │
 │  External Client                                          │
 │       │                                                   │
-│       │  http://10.10.20.3:30080                          │
-│       │  http://10.10.20.4:30080                          │
-│       │  http://10.10.20.5:30080                          │
+│       │  http://10.28.28.3:30080                          │
+│       │  http://10.28.28.4:30080                          │
+│       │  http://10.28.28.5:30080                          │
 │       │                                                   │
 │  ┌────▼──────┐     ┌───────────┐     ┌───────────┐        │
 │  │  Node 1   │     │  Node 2   │     │  Node 3   │        │
@@ -907,7 +907,7 @@ With MetalLB:
 ```bash
 $ kubectl get svc my-app
 NAME     TYPE           CLUSTER-IP      EXTERNAL-IP    PORT(S)
-my-app   LoadBalancer   10.106.190.47   10.10.20.201   80:30681/TCP
+my-app   LoadBalancer   10.106.190.47   10.28.31.101   80:30681/TCP
 ```
 
 **MetalLB provides two modes**:
