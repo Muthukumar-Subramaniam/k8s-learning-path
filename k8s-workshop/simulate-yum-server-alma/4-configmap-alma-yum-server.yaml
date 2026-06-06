@@ -15,8 +15,8 @@ data:
             <body>
             <h1>AlmaLinux YUM Repository</h1>
             <ul>
-              <li><a href="/9/">AlmaLinux 9 (Previous)</a></li>
-              <li><a href="/10/">AlmaLinux 10 (Latest)</a></li>
+              <li><a href="/10/">AlmaLinux 10 </a></li>
+              <li><a href="/9/">AlmaLinux 9 </a></li>
             </ul>
             </body>
             </html>\n';

@@ -33,11 +33,11 @@ spec:
         volumeMounts:
         - mountPath: /usr/share/nginx/html/9
           name: nfs-volume
-          subPath: almalinux-previous
+          subPath: os-repos/almalinux/9
           readOnly: true
         - mountPath: /usr/share/nginx/html/10
           name: nfs-volume
-          subPath: almalinux-latest
+          subPath: os-repos/almalinux/10
           readOnly: true
         - mountPath: /etc/nginx/conf.d/alma-yum-server.conf
           subPath: alma-yum-server.conf
