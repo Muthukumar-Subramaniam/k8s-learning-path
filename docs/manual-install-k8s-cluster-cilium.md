@@ -295,6 +295,20 @@ kubectl get nodes -o wide
 ```
 
 ### Optional Step 16) Enable Hubble Observability ( Cilium's built-in network observability layer )
+Install the Hubble CLI
+```
+hubble_vers=$(curl -s -L https://raw.githubusercontent.com/cilium/hubble/main/stable.txt | tr -d '[:space:]') && echo "latest hubble-cli version : ${hubble_vers}"
+```
+```
+wget https://github.com/cilium/hubble/releases/download/"${hubble_vers}"/hubble-linux-amd64.tar.gz
+```
+```
+sudo tar xzvf hubble-linux-amd64.tar.gz -C /usr/local/bin && rm -f hubble-linux-amd64.tar.gz
+```
+```
+hubble version
+```
+Enable Hubble in the cluster
 ```
 cilium hubble enable --ui
 ```
