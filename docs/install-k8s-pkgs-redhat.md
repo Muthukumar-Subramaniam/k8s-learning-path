@@ -17,12 +17,12 @@ baseurl=https://pkgs.k8s.io/core:/stable:/${k8s_vers_major_minor}/rpm/
 enabled=1
 gpgcheck=1
 gpgkey=https://pkgs.k8s.io/core:/stable:/${k8s_vers_major_minor}/rpm/repodata/repomd.xml.key
-exclude=kubelet kubeadm kubectl
+exclude=kubelet kubeadm kubectl cri-tools
 EOF
 ```
-#### Install kubeadm, kubelet and kubectl packages
+#### Install kubeadm, kubelet, kubectl and cri-tools packages
 ```
-sudo dnf makecache && sudo dnf install -y kubelet kubeadm kubectl --disableexcludes=k8s-"${k8s_vers_major_minor}"
+sudo dnf makecache && sudo dnf install -y kubelet kubeadm kubectl cri-tools --disableexcludes=k8s-"${k8s_vers_major_minor}"
 ```
 #### Enable kubelet service
 ```

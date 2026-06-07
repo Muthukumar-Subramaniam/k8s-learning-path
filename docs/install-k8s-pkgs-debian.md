@@ -13,9 +13,9 @@ k8s_vers_major_minor="${k8s_vers_major}.${k8s_vers_minor}"
 echo "deb [signed-by=/etc/apt/keyrings/k8s-apt-keyring-${k8s_vers_major_minor}.gpg] https://pkgs.k8s.io/core:/stable:/${k8s_vers_major_minor}/deb/ /" | sudo tee /etc/apt/sources.list.d/k8s.list
 curl -fsSL https://pkgs.k8s.io/core:/stable:/"${k8s_vers_major_minor}"/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/k8s-apt-keyring-"${k8s_vers_major_minor}".gpg		
 ```
-#### Install kubeadm, kubelet and kubectl packages
+#### Install kubeadm, kubelet, kubectl and cri-tools packages
 ```
-sudo apt-get update && sudo apt-get install -y kubelet kubeadm kubectl && sudo apt-mark hold kubelet kubeadm kubectl
+sudo apt-get update && sudo apt-get install -y kubelet kubeadm kubectl cri-tools && sudo apt-mark hold kubelet kubeadm kubectl cri-tools
 ```
 #### Enable kubelet service
 ```

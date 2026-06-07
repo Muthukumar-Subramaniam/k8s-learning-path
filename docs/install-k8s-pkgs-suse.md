@@ -19,9 +19,9 @@ gpgcheck=1
 gpgkey=https://pkgs.k8s.io/core:/stable:/${k8s_vers_major_minor}/rpm/repodata/repomd.xml.key
 EOF
 ```
-#### Install kubeadm, kubelet and kubectl packages
+#### Install kubeadm, kubelet, kubectl and cri-tools packages
 ```
-sudo zypper --gpg-auto-import-keys refresh && sudo zypper install -y kubelet kubeadm kubectl && sudo zypper addlock kubelet kubeadm kubectl
+sudo zypper --gpg-auto-import-keys refresh && sudo zypper install -y kubelet kubeadm kubectl cri-tools && sudo zypper addlock kubelet kubeadm kubectl cri-tools
 ```
 #### Enable kubelet service
 ```
