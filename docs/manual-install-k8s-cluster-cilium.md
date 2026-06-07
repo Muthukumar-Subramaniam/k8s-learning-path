@@ -213,8 +213,8 @@ Identify the Kubernetes API server address ( needed for kube-proxy replacement )
 
 > In case of Single Control Plane Setup
 ```
-k8s_api_server_ip=$(kubectl get endpoints kubernetes -o jsonpath='{.subsets[0].addresses[0].ip}')
-k8s_api_server_port=$(kubectl get endpoints kubernetes -o jsonpath='{.subsets[0].ports[0].port}')
+k8s_api_server_ip=$(kubectl get endpointslice -n default -l kubernetes.io/service-name=kubernetes -o jsonpath='{.items[0].endpoints[0].addresses[0]}')
+k8s_api_server_port=$(kubectl get endpointslice -n default -l kubernetes.io/service-name=kubernetes -o jsonpath='{.items[0].ports[0].port}')
 echo "API Server: ${k8s_api_server_ip}:${k8s_api_server_port}"
 ```
 > ( Or )
