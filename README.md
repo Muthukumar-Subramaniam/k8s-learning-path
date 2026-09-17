@@ -227,6 +227,8 @@ Read in this order. Each layer assumes the previous one.
 | [Installation Methods](docs/k8s-installation-methods.md) | kubeadm, managed, distributions, and the trade-offs |
 | [Installation Requirements](docs/k8s-installation-requirements.md) | Hardware, OS, networking, ports |
 | [Preparing a Linux Node](docs/preparing-linux-node.md) | Kernel modules, sysctls, swap, runtime prerequisites |
+| [Installing containerd](docs/installing-containerd.md) | The runtime: config, cgroup driver, sandbox image, registries, crictl |
+| [Bootstrapping With kubeadm](docs/bootstrapping-kubeadm.md) | `kubeadm init` phase by phase, the config file, HA init, reset |
 | [Cluster Networking Ports](https://kubernetes.io/docs/reference/networking/ports-and-protocols/) | Upstream reference for firewall rules |
 
 ### Installing Packages by Distribution
@@ -271,7 +273,7 @@ Planned documents, not yet written. Listed so the intended scope is visible, and
 (complete)
 
 **Installation**
-`installing-containerd` · `installing-k8s-packages` · `creating-control-plane` · `bootstrapping-kubeadm` · `adding-worker-node`
+`installing-k8s-packages` · `adding-worker-node`
 
 **Cluster Lifecycle**
 `etcd-backup-restore` · `node-maintenance` · `ha-control-plane` · `static-pods` · `disaster-recovery`
