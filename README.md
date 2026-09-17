@@ -192,6 +192,8 @@ Read in this order. Each layer assumes the previous one.
 
 | Topic | What it covers |
 |---|---|
+| [Certificates and the Cluster PKI](docs/certificates.md) | The three CAs, every file explained, renewal, SANs, the CSR API, creating users |
+| [kubeconfig and Static Pod Manifests](docs/kubeconfig-and-manifests.md) | The files that carry credentials and start the control plane |
 | [Authentication](docs/authentication.md) | Certificates, tokens, OIDC, webhooks. How identity is established |
 | [Authorization](docs/authorization.md) | The authorizer chain: Node, RBAC, ABAC, Webhook, and impersonation |
 | [RBAC](docs/rbac.md) | Roles, bindings, rule anatomy, least privilege recipes |
@@ -253,7 +255,7 @@ Planned documents, not yet written. Listed so the intended scope is visible, and
 `local-clusters` (kind, minikube, k3s) · `managed-kubernetes` (EKS, GKE, AKS) · `understanding-yaml` · `declarative-kubernetes`
 
 **Security**
-`certificates` · `kubeconfig-and-manifests` · `cluster-hardening` · `runtime-class` · `image-security`
+`cluster-hardening` · `runtime-class` · `image-security`
 
 **Installation**
 `installing-containerd` · `installing-k8s-packages` · `creating-control-plane` · `bootstrapping-kubeadm` · `adding-worker-node`
