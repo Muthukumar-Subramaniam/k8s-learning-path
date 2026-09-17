@@ -32,6 +32,16 @@ Where a procedure requires a self-managed control plane, the document says so an
 
 ---
 
+## 🚀 Start Here
+
+No cluster? Start with this one document and you will have a real, multi-node Kubernetes cluster on your laptop in about a minute.
+
+| Topic | What it covers |
+|---|---|
+| [Local Clusters](docs/local-clusters.md) | kind, minikube, k3s and Docker Desktop. Multi-node setups, Ingress, LoadBalancer and storage locally, and an honest account of what you cannot learn this way |
+
+---
+
 ## Part 0: Foundations
 
 Kubernetes makes very little sense until you understand what a container actually is. Start here even if you are impatient.
@@ -205,6 +215,7 @@ Read in this order. Each layer assumes the previous one.
 | [Audit Logging](docs/audit-logging.md) | The forensic record. Policy design and investigation queries |
 | [Image Security](docs/image-security.md) | Digests, registries, scanning, SBOMs, signing, admission verification |
 | [RuntimeClass](docs/runtime-class.md) | gVisor and Kata for workloads that need more than a shared kernel |
+| [Cluster Hardening](docs/cluster-hardening.md) | The whole posture: attack tree, every control, and a prioritised roadmap |
 
 ---
 
@@ -254,10 +265,10 @@ Read in this order. Each layer assumes the previous one.
 Planned documents, not yet written. Listed so the intended scope is visible, and deliberately not linked so that nothing here is a broken link.
 
 **Getting Started**
-`local-clusters` (kind, minikube, k3s) · `managed-kubernetes` (EKS, GKE, AKS) · `understanding-yaml` · `declarative-kubernetes`
+`managed-kubernetes` (EKS, GKE, AKS) · `understanding-yaml` · `declarative-kubernetes`
 
 **Security**
-`cluster-hardening`
+(complete)
 
 **Installation**
 `installing-containerd` · `installing-k8s-packages` · `creating-control-plane` · `bootstrapping-kubeadm` · `adding-worker-node`
