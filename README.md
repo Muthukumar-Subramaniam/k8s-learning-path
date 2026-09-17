@@ -203,6 +203,8 @@ Read in this order. Each layer assumes the previous one.
 | [Security Context](docs/security-context.md) | Every field, and what each becomes at the kernel level |
 | [Encryption at Rest](docs/encryption-at-rest.md) | Protecting etcd data, providers, key rotation |
 | [Audit Logging](docs/audit-logging.md) | The forensic record. Policy design and investigation queries |
+| [Image Security](docs/image-security.md) | Digests, registries, scanning, SBOMs, signing, admission verification |
+| [RuntimeClass](docs/runtime-class.md) | gVisor and Kata for workloads that need more than a shared kernel |
 
 ---
 
@@ -255,7 +257,7 @@ Planned documents, not yet written. Listed so the intended scope is visible, and
 `local-clusters` (kind, minikube, k3s) · `managed-kubernetes` (EKS, GKE, AKS) · `understanding-yaml` · `declarative-kubernetes`
 
 **Security**
-`cluster-hardening` · `runtime-class` · `image-security`
+`cluster-hardening`
 
 **Installation**
 `installing-containerd` · `installing-k8s-packages` · `creating-control-plane` · `bootstrapping-kubeadm` · `adding-worker-node`
